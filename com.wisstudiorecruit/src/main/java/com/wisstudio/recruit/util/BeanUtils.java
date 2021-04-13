@@ -11,18 +11,17 @@ public interface BeanUtils {
      * @param sql   执行的语句
      * @param clazz 返回类型字节码
      * @param args  问号参数
-     * @param <T>
-     * @return
+     * @param <T> datatype
+     * @return List <T>
      */
     <T> List <T> query (String sql,Class<T> clazz, Object...args);
 
     /**
      * 更新操作
-     * @param sql
-     * @param clazz 返回List泛型字节码对象
+     * @param sql   执行的语句
      * @param args 问号参数列表
-     * @param <T>
+     * @param <T> datatype
      * @return 更新的行数
      */
-    <T> Integer update(String sql,Class<T> clazz, Object...args);
+    <T> Integer update(String sql, Object...args);
 }
