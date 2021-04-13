@@ -15,14 +15,21 @@ public interface UserService {
     /**
      * 登录用户
      * @param user 用户信息
-     * @return  返回修改结果
+     * @return  返回用户信息
      */
-    public boolean login(User user);
+    public User login(User user);
 
     /**
-     * @param id 用户id
+     * @param user 用户信息修改
      * @return 返回修改结果
      */
 
-    public boolean modify(Integer id);
+    public boolean modify(User user);
+
+    /**
+     * 提交用户信息
+     * @param user 用户信息
+     * @return 成功与否
+     */
+    public boolean submit(User user);
 }

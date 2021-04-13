@@ -25,8 +25,8 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public boolean add(User user) {
-        String sql = "insert into tab_user(id,name,gender,major,grade,contactNumber," +
-                "choiceofdirection,skillMastered,selfIntroduce) value(?,?,?,?,?,?,?,?,?,)";
+        String sql = "insert into tab_user(id,password,name,gender,major,grade,contactNumber," +
+                "choiceofdirection,skillMastered,selfIntroduce) value(?,?,?,?,?,?,?,?,?,?)";
         int i=beanUtils.update(sql,"id,name,gender,major,grade," +
                 "contactNumber,choiceofdirection,skillMastered,selfIntroduce");
 
@@ -35,11 +35,10 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public boolean modify(User user) {
-        String sql = "update tab_uesr set id= ?,name= ?,gender= ?,major= ?,grade= ?,contactNumber= ?,choiceofdirection= ?,skillMastered= ?,selfIntroduce= ?";
+        String sql = "update tab_uesr set id= ?,password,name= ?,gender= ?,major= ?,grade= ?,contactNumber= ?,choiceofdirection= ?,skillMastered= ?,selfIntroduce= ?";
         Integer i = beanUtils.update(sql,"id","name","gender","major","grade","ontactNumber","choiceofdirection","skillMastered","selfIntroduce");
         return i > 0;
     }
-
     /**
      *  普通用户没有权限
      * @param obj 根据不同的条件删除
@@ -47,16 +46,26 @@ public class UserDaoImpl implements UserDao{
      */
     @Override
     public boolean delete(Object obj) {
-        return false;
+        String sql = "delete from tab_user where "+obj.toString()+" = ?";
+        int i=beanUtils.update(sql,obj.toString());
+        return i > 0;
+
     }
 
     /**
      * 普通用户没有权限
      * @param obj 根据不同的条件选择
-     * @return
+     * @return 用户集合
      */
     @Override
      public List<User> select(Object obj) {
-        return null;
+        String sql = "select * from tab_user where "+obj.toString()+" = ?";
+        return beanUtils.query(sql,User.class,obj.toString());
+    }
+
+    @Override
+    public User login(String username, String password) {
+        String sql = "select * from tab_user where ( username = ? and password = ?)";
+        return beanUtils.query(sql,User.class,username,password).get(0);
     }
 }

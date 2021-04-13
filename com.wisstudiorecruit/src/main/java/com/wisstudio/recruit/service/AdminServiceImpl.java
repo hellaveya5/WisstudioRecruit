@@ -1,38 +1,30 @@
 package com.wisstudio.recruit.service;
 
+import com.wisstudio.recruit.po.Administrator;
 import com.wisstudio.recruit.po.User;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
-public class AdminServiceImpl implements UserService {
-    /**
-     * 注册
-     * @param user  用户信息
-     * @return
-     */
+public class AdminServiceImpl implements AdminService {
     @Override
-    public boolean regist(User user) {
-
+    public boolean login(String username, String password) {
         return false;
     }
 
     @Override
-    public boolean login(User user) {
-        return false;
-    }
-
-    /**
-     * 删除所有选中的用户
-     * @return 是否删除成功
-     */
-    public boolean deleteAllSelect(ArrayList<Integer> ids){
-
+    public boolean delete(Integer id) {
         return false;
     }
 
     @Override
-    public boolean modify(Integer id) {
+    public boolean modify(User user) {
         return false;
+    }
+
+    @Override
+    public List<User> select(Object obj) {
+        return null;
     }
 }

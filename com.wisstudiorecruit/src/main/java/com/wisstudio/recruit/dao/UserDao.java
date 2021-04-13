@@ -31,5 +31,6 @@ public interface UserDao {
      */
     List<User> select(Object obj);
 
+    User login(String username,String password);
 
 }
