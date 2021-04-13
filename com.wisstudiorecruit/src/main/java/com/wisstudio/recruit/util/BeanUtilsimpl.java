@@ -1,16 +1,20 @@
 package com.wisstudio.recruit.util;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.wisstudio.Exception.TypeNotEnoughException;
+import org.junit.Test;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author 98333
  */
 public class BeanUtilsimpl implements BeanUtils {
-    private Connection conn;
+    private Connection conn ;
 
     public Connection getConn() {
         return conn;
@@ -29,8 +33,8 @@ public class BeanUtilsimpl implements BeanUtils {
         ResultSet rs = null;
         //给？赋予参数
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            if(null != args){
-                for(int i=1; i <= args.length; i++){
+            if (null != args) {
+                for (int i = 1; i <= args.length; i++) {
                     ps.setObject(i, args[i - 1]);
                 }
                 rs = ps.executeQuery();
@@ -38,14 +42,87 @@ public class BeanUtilsimpl implements BeanUtils {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-        return null;
+        //列名
+        List<String> propertyKeys = new ArrayList<>();
+        //值名
+        List<Object> propertyValues = new ArrayList<>();
+        //数据类型字节码对象
+        List<Class<?>> propertyClass = new ArrayList<>();
+        //返回的List集合
+        List<T> objList = new ArrayList<>();
+        //获取类中所有属性,返回Field 对象的一个数组
+        Field[] fields = clazz.getDeclaredFields();
+        //获取列名和列类型的对象
+        for (Field field : fields) {
+            propertyClass.add(field.getType());
+            propertyKeys.add(field.getName());
+        }
+        //获取列值
+        try {
+            assert rs != null;
+            ResultSetMetaData rsmd = rs.getMetaData();
+            while (rs.next()) {
+                for (int i = 0; i < rsmd.getColumnCount(); i++) {
+                    if ("INT".equals(rsmd.getColumnTypeName(i))) {
+                        propertyValues.add(rs.getInt(i));
+                    } else if ("varchar".equals(rsmd.getColumnTypeName(i))) {
+                        propertyValues.add(rs.getString(i));
+                    }//else if
+                    else {
+                        throw new TypeNotEnoughException();
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //操作 T 对象调用它的方法给他成员变量赋值
+        for (int j = 0; j < propertyValues.size(); ) {
+            T object = null;
+            try {
+                object = clazz.getDeclaredConstructor().newInstance();
+            } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            for (int i = 0; i < propertyKeys.size(); i++, j++) {
+                //Stringbuilder获取方法的字段
+                StringBuilder sb = new StringBuilder("set");
+                sb.append(propertyKeys.get(i).substring(0, 1).toUpperCase()).append((propertyKeys.get(i).substring(1)));
+                //执行方法对象
+                Method method = null;
+                try {
+                    assert object != null;
+                    //获取
+                    method = object.getClass().getDeclaredMethod(sb.toString(), propertyClass.get(i));
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    assert method != null;
+                    //执行
+                    method.invoke(propertyClass.get(i), propertyValues.get(i));
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+            objList.add(object);
+        }
+        return objList;
     }
 
     @Override
-    public <T> Integer update(String sql, Class<T> clazz, Object... args) {
-
-        return 0;
+    public Integer update(String sql, Object... args) {
+        int impactline = -1;
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            if (null != args) {
+                for (int i = 1; i <= args.length; i++) {
+                    ps.setObject(i, args[i - 1]);
+                }
+            }
+            impactline = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return impactline;
     }
 }
