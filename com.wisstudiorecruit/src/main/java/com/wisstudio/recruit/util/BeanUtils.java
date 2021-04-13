@@ -20,7 +20,6 @@ public interface BeanUtils {
      * 更新操作
      * @param sql   执行的语句
      * @param args 问号参数列表
-     * @param <T> datatype
      * @return 更新的行数
      */
     <T> Integer update(String sql, Object...args);

@@ -7,7 +7,7 @@ public class User {
 /*
     学号 + 姓名 + 性别 + 年级+ 所在专业 + 联系电话 + 选择方向（前端/后台） + 目前已掌握的技能介绍 + 自我介绍
 */
-    Integer studentId;
+    Integer id;
     String password;
     String name;
     String gender;
@@ -18,12 +18,12 @@ public class User {
     String skillMastered;
     String selfIntroduce;
 
-    public Integer getStudentId() {
-        return studentId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getPassword() {
