@@ -11,8 +11,8 @@ public class User {
     String password;
     String name;
     String gender;
-    Integer grade;
     String major;
+    Integer grade;
     Integer contactNumber;
     String choiceOfDirection;
     String skillMastered;

@@ -1,12 +1,13 @@
-package com.wisstudio.recruit.service;
+package com.wisstudio.recruit.service.Impl;
 
 import com.wisstudio.recruit.dao.UserDao;
-import com.wisstudio.recruit.dao.UserDaoImpl;
+import com.wisstudio.recruit.dao.Impl.UserDaoImpl;
 import com.wisstudio.recruit.po.User;
+import com.wisstudio.recruit.service.UserService;
 
 import java.util.List;
 
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     /**
      * 注册
      * @param user  用户信息

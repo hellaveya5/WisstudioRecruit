@@ -1,9 +1,11 @@
-package com.wisstudio.recruit.dao;
+package com.wisstudio.recruit.dao.Impl;
 
+import com.wisstudio.recruit.dao.UserDao;
 import com.wisstudio.recruit.po.User;
 import com.wisstudio.recruit.util.BeanUtils;
 import com.wisstudio.recruit.util.BeanUtilsimpl;
 import com.wisstudio.recruit.util.JDBCUtils;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ import java.util.List;
  * 用户有增，删功能
  * @author 98333
  */
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
     private  JDBCUtils dbUtil = new JDBCUtils();
     private BeanUtils beanUtils;
 
@@ -64,6 +66,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
+    
     public User login(String username, String password) {
         String sql = "select * from tab_user where ( username = ? and password = ?)";
         return beanUtils.query(sql,User.class,username,password).get(0);

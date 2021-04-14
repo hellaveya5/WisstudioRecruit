@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class JDBCUtils {
-    private String dbUrl="jdbc:mysql://127.0.0.1:3306/recruit";
+    private String dbUrl="jdbc:mysql://127.0.0.1:3306/recruit?useSSL=true";
     private String dbUserName="root";
     private String dbPassword="root";
     private String jdbcName="com.mysql.jdbc.Driver";

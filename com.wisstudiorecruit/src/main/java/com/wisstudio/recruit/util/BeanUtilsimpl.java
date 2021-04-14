@@ -31,8 +31,10 @@ public class BeanUtilsimpl implements BeanUtils {
     @Override
     public <T> List<T> query(String sql, Class<T> clazz, Object... args) {
         ResultSet rs = null;
+        PreparedStatement ps;
         //给？赋予参数
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        try {
+            ps = conn.prepareStatement(sql);
             if (null != args) {
                 for (int i = 1; i <= args.length; i++) {
                     ps.setObject(i, args[i - 1]);
@@ -58,14 +60,16 @@ public class BeanUtilsimpl implements BeanUtils {
             propertyKeys.add(field.getName());
         }
         //获取列值
+        int columnCount;
         try {
             assert rs != null;
-            ResultSetMetaData rsmd = rs.getMetaData();
+            columnCount= rs.getMetaData().getColumnCount();
             while (rs.next()) {
-                for (int i = 0; i < rsmd.getColumnCount(); i++) {
-                    if ("INT".equals(rsmd.getColumnTypeName(i))) {
+                for (int i = 1; i <=columnCount; i++) {
+                    //System.out.println(rs.getMetaData().getColumnTypeName(i));
+                    if ("INT".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
                         propertyValues.add(rs.getInt(i));
-                    } else if ("varchar".equals(rsmd.getColumnTypeName(i))) {
+                    } else if ("VARCHAR".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
                         propertyValues.add(rs.getString(i));
                     }//else if
                     else {
@@ -100,7 +104,8 @@ public class BeanUtilsimpl implements BeanUtils {
                 try {
                     assert method != null;
                     //执行
-                    method.invoke(propertyClass.get(i), propertyValues.get(i));
+                    System.out.println(propertyValues.get(j));
+                    method.invoke(object, propertyValues.get(j));
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
