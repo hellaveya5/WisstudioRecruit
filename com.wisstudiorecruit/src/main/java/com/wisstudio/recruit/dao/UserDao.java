@@ -3,6 +3,7 @@ package com.wisstudio.recruit.dao;
 import com.wisstudio.recruit.po.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserDao {
     /**
@@ -17,19 +18,9 @@ public interface UserDao {
      */
      boolean modify(User user);
 
-    /**
-     * 删除用户
-     * @param obj 根据不同的条件删除
-     * @return 修改的结果
-     */
-    boolean delete(Object obj);
 
-    /**
-     *
-     * @param obj 根据不同的条件选择
-     * @return 返回符合条件的用户
-     */
-    List<User> select(Object obj);
+
+    User findByUsernameAndPassword(String username, String password);
 
     User login(String username,String password);
 

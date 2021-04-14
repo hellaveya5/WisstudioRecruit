@@ -32,4 +32,5 @@ public interface UserService {
      * @return 成功与否
      */
     public boolean submit(User user);
+
 }

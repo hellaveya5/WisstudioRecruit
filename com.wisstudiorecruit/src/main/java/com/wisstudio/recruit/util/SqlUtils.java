@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * @author 98333
  */
-public interface BeanUtils {
+public interface SqlUtils {
     /**
      *  查询操作
      * @param sql   执行的语句

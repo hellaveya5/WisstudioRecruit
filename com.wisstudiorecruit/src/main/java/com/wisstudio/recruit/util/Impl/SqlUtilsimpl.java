@@ -1,7 +1,7 @@
-package com.wisstudio.recruit.util;
+package com.wisstudio.recruit.util.Impl;
 
 import com.wisstudio.Exception.TypeNotEnoughException;
-import org.junit.Test;
+import com.wisstudio.recruit.util.SqlUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author 98333
  */
-public class BeanUtilsimpl implements BeanUtils {
+public class SqlUtilsimpl implements SqlUtils {
     private Connection conn ;
 
     public Connection getConn() {
@@ -24,7 +24,7 @@ public class BeanUtilsimpl implements BeanUtils {
         this.conn = conn;
     }
 
-    public BeanUtilsimpl(Connection conn) {
+    public SqlUtilsimpl(Connection conn) {
         this.conn = conn;
     }
 

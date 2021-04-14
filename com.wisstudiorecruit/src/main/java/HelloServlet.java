@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * @author 98333
+ */
 @WebServlet(urlPatterns = "/")
 public class HelloServlet extends HttpServlet {
     @Override

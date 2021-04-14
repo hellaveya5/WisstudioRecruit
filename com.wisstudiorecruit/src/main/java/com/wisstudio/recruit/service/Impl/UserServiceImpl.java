@@ -5,6 +5,7 @@ import com.wisstudio.recruit.dao.Impl.UserDaoImpl;
 import com.wisstudio.recruit.po.User;
 import com.wisstudio.recruit.service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
@@ -16,12 +17,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean regist(User user) {
         UserDao userDaoImpl = new UserDaoImpl();
-        List<User> list= userDaoImpl.select(user);
+        List<User> list = new ArrayList<>();
+        list.add(userDaoImpl.findByUsernameAndPassword(user.getName(),user.getPassword()));
         //返回结果
         if(list.size()>0){
-            return false;
+            return true;
         }
-        return userDaoImpl.add(user);
+        return false;
+       /*return false;*/
     }
 
     /**
