@@ -26,35 +26,43 @@
                         username: $("#inputUsername").val(),
                         password: $("#inputPassword").val(),
                     },
-                    url: "/LoginServlet",
+                    url: "LoginServlet",
                     success: function (data) {
-                       /* let jsonData = JSON.parse(data);
+                        /*let jsonData = JSON.parse(data);
                         if (jsonData.flag === 0) {//请求成功
                             alert("后台操作成果");
                         } else {
                             alert(jsonData);
                         }*/
-                        for(let key in data){
+                       if(data){
+                               for(let key in data){
+                                   alert(key+":"+data[key]);
+                               }
+                       }else {
+                           alert(data)
+                       }
+
+                        /*for(let key in data){
                             alert(key+":"+data[ key]);
-                        }
+                        }*/
                     },
                     error:function () {
                     alert("wrong function")
                     },
-                    dataType:'json'
+                    dataType:"json"
                 }
             )});
 
         })
 
 </script>
-<form>
-    <form class="form-horizontal container-fluid ">
+<div>
+    <div class="form-horizontal container-fluid ">
         <div class="login_layout">
             <div class="login_form">
                 <!--表单-->
                 <div id="errorMsg" class="alert-danger"></div>
-                <form id="loginForm" method="post" accept-charset="utf-8" >
+                <div id="loginForm" method="post" accept-charset="utf-8" >
                     <table class="table-bordered table-hover">
                             <tr>
                                 <td>
@@ -87,12 +95,6 @@
                                         <div class="col-sm-10">
                                         <div class="col-sm-10">
                                         <input type="text" class="form-control" id="checkCode" placeholder="checkCode">
-                                           <!-- <span> <img src="checkCode" alt="" onclick="changeCheckCode(this)"></span>-->
-                                           <!-- <script type="text/javascript">
-                                                function changeCheckCode() {
-                                                    img.src="checkCode?"+new Date().getTime();
-                                                }
-                                            </script>-->
                                         </div>
                                         <div >验证码</div>
                                     </div>
@@ -109,10 +111,10 @@
                                 </td>
                             </tr>
                     </table>
-                </form>
+                </div>
             </div>
         </div>
-    </form>
-</form>
+    </div>
+</div>
 </body>
 </html>
