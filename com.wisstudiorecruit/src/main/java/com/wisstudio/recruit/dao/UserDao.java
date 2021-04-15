@@ -18,7 +18,12 @@ public interface UserDao {
      */
      boolean modify(User user);
 
-
+    /**
+     *  根据用户名和密码找到用户
+     * @param username 用户名
+     * @param password 密码
+     * @return  用户信息
+     */
 
     User findByUsernameAndPassword(String username, String password);
 

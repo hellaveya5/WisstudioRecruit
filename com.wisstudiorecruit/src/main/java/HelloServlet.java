@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 /**
  * @author 98333
  */
-@WebServlet(urlPatterns = "/")
+@WebServlet(urlPatterns = "/hello")
 public class HelloServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

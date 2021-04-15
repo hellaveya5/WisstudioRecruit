@@ -6,6 +6,8 @@ import com.wisstudio.recruit.util.SqlUtils;
 import com.wisstudio.recruit.util.Impl.SqlUtilsimpl;
 import com.wisstudio.recruit.util.JDBCUtils;
 
+import java.util.List;
+
 /**
  * 用户有增，删功能
  * @author 98333
@@ -38,13 +40,17 @@ public class UserDaoImpl implements UserDao {
     }
     @Override
     public User login(String username, String password) {
-        String sql = "select * from tab_user where ( username = ? and password = ?)";
-        return sqlUtils.query(sql,User.class,username,password).get(0);
+        String sql = "select * from tab_user where ( name = ? and password = ?)";
+        List<User> query = sqlUtils.query(sql, User.class, username, password);
+        if (query.size() != 0){
+            return query.get(0);
+        }
+        return null;
     }
 
     @Override
     public User findByUsernameAndPassword(String username, String password) {
-        String sql = " slect * from tab_user where ( username = ? and password = ?)";
+        String sql = " slect * from tab_user where ( name = ? and password = ?)";
         return sqlUtils.query(sql,User.class,username,password).get(0);
     }
 }

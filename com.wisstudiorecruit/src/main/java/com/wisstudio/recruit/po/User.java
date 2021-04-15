@@ -96,4 +96,20 @@ public class User {
     public void setSelfIntroduce(String selfIntroduce) {
         this.selfIntroduce = selfIntroduce;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", major='" + major + '\'' +
+                ", grade=" + grade +
+                ", contactNumber=" + contactNumber +
+                ", choiceOfDirection='" + choiceOfDirection + '\'' +
+                ", skillMastered='" + skillMastered + '\'' +
+                ", selfIntroduce='" + selfIntroduce + '\'' +
+                '}';
+    }
 }

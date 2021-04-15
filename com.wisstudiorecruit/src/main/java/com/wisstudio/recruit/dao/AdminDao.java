@@ -23,7 +23,7 @@ public interface AdminDao  {
     /**
      *
      * @param user 条件
-     * @return
+     * @return  用户集合
      */
     List<User> select (User user);
 }

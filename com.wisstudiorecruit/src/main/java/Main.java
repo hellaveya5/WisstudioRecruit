@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         // 启动Tomcat:
         Tomcat tomcat = new Tomcat();
-        tomcat.setPort(Integer.getInteger("port", 8080));
+        tomcat.setPort(Integer.getInteger("port", 80));
         tomcat.getConnector();
         // 创建webapp:
         Context ctx = tomcat.addWebapp("", new File("src/main/webapp").getAbsolutePath());
