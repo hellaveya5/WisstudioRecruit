@@ -69,6 +69,7 @@ public class SqlUtilsimpl implements SqlUtils {
                     //System.out.println(rs.getMetaData().getColumnTypeName(i));
                     if ("INT".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
                         propertyValues.add(rs.getInt(i));
+                        System.out.println(rs.getInt(i));
                     } else if ("VARCHAR".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
                         propertyValues.add(rs.getString(i));
                     }//else if

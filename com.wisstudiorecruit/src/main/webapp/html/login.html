@@ -23,31 +23,23 @@
            $.ajax({
                     type: "get",
                     data: {
-                        username: $("#inputUsername").val(),
+                        name: $("#inputUsername").val(),
                         password: $("#inputPassword").val(),
                     },
                     url: "LoginServlet",
                     success: function (data) {
-                        /*let jsonData = JSON.parse(data);
-                        if (jsonData.flag === 0) {//请求成功
-                            alert("后台操作成果");
-                        } else {
-                            alert(jsonData);
-                        }*/
-                       if(data){
-                               for(let key in data){
+                       if(data!=null){
+                               /*for(let key in data){
                                    alert(key+":"+data[key]);
-                               }
-                       }else {
-                           alert(data)
-                       }
+                               }*/
+                               alert("登陆成功")
 
-                        /*for(let key in data){
-                            alert(key+":"+data[ key]);
-                        }*/
+                       }else {
+                           alert("登陆失败")
+                       }
                     },
                     error:function () {
-                    alert("wrong function")
+                    alert("异步请求出现问题")
                     },
                     dataType:"json"
                 }

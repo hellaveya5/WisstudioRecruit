@@ -22,5 +22,5 @@ public interface SqlUtils {
      * @param args 问号参数列表
      * @return 更新的行数
      */
-    <T> Integer update(String sql, Object...args);
+     Integer update(String sql, Object...args);
 }
