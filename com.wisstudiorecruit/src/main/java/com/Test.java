@@ -57,7 +57,7 @@ public class Test {
         map.put("name",strArray);
         map.put("password",strArray);
         BeanUtilsImpl beanUtils = new BeanUtilsImpl();
-        Class<User> populate = beanUtils.populate(User.class, map);
+        User populate = beanUtils.populate(User.class, map);
         ObjectMapper mapper = new ObjectMapper();
         String str=null;
         try {

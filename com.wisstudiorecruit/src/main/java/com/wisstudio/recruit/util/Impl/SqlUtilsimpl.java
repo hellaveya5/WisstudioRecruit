@@ -66,7 +66,6 @@ public class SqlUtilsimpl implements SqlUtils {
             columnCount= rs.getMetaData().getColumnCount();
             while (rs.next()) {
                 for (int i = 1; i <=columnCount; i++) {
-                    //System.out.println(rs.getMetaData().getColumnTypeName(i));
                     if ("INT".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
                         propertyValues.add(rs.getInt(i));
                         System.out.println(rs.getInt(i));
@@ -105,6 +104,8 @@ public class SqlUtilsimpl implements SqlUtils {
                 try {
                     assert method != null;
                     //执行
+                    System.out.println(propertyClass.get(i));
+                    System.out.println(sb.toString());
                     System.out.println(propertyValues.get(j));
                     method.invoke(object, propertyValues.get(j));
                 } catch (IllegalAccessException | InvocationTargetException e) {
