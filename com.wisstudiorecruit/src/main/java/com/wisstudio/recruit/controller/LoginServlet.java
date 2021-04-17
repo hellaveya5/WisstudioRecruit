@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @WebServlet(urlPatterns = "/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -33,10 +34,11 @@ public class LoginServlet extends HttpServlet {
             info.setFlag(false);
             System.out.println(info.isFlag());
             info.setMsg("用户名密码错误");
-            System.out.println(info.getMsg());
+            Logger.getGlobal().info(info.getMsg());
         } else {
             info.setFlag(true);
-            System.out.println(info.isFlag());
+            info.setMsg("用户"+u.getName()+"登录");
+            Logger.getGlobal().info(info.getMsg());
         }
         //响应数据
         ObjectMapper mapper = new ObjectMapper();

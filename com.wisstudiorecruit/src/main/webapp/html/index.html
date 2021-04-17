@@ -8,7 +8,7 @@
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>注册页面</h1>
+<h1 class="col-sm-offset-5">注册页面</h1>
 <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
 <script src="../static/js/bootstrap.min.js"></script>
 </body>
@@ -37,6 +37,7 @@
                             if (data != null) {
                                 console.log(data);
                                 alert("注册成功")
+                                window.Location.href = 'html/login.html';
                             } else {
                                 alert("注册失败")
                             }
@@ -125,7 +126,7 @@
             <div class="login_form">
                 <!--表单-->
                 <div id="errorMsg" class="alert-danger" ></div>
-                <div id="form"  method="get" accept-charset="utf-8" >
+                <div  id="form"  method="get" accept-charset="utf-8" >
                     <table class="table-bordered table-hover">
                         <tr>
                             <td>

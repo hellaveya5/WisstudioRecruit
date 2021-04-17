@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="page-header">
-    <h1>Wisstudio<small>Recruit</small></h1>
+    <h1 class="col-sm-offset-4">Wisstudio<small>Recruit</small></h1>
 </div>
 <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
 <script src="../static/js/bootstrap.min.js"></script>
@@ -24,7 +24,7 @@
                         name: $("#inputUsername").val(),
                         password: $("#inputPassword").val(),
                     },
-                    url: "LoginServlet",
+                    url: "/LoginServlet",
                     success: function (data) {
                        if(data!=null){
                                /*for(let key in data){
@@ -32,6 +32,7 @@
                                }*/
                            console.log("收到"+data);
                                alert("登陆成功");
+                           window.location.href = '/html/user.html';
                        }else {
                            alert("登陆失败");
                            console.log("收到"+data);
