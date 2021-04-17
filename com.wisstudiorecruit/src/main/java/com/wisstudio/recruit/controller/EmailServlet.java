@@ -35,15 +35,15 @@ public class EmailServlet extends HttpServlet {
                 resp.getWriter().write(randomCode);
                 Logger.getGlobal().info("邮箱发送成功");
             } catch (Exception e) {
-                info.setMsg("邮箱发送失败");
-                resp.getWriter().write(info.getMsg());
+                info.setFlag(false);
+                resp.getWriter().print(info.isFlag());
                 Logger.getGlobal().info("邮箱发送失败");
                 e.printStackTrace();
             }
 
         }else {
-            info.setMsg("邮箱发送失败");
-            resp.getWriter().write(info.getMsg());
+            info.setFlag(false);
+            resp.getWriter().print(info.isFlag());
             Logger.getGlobal().info("邮箱发送失败");
         }
 

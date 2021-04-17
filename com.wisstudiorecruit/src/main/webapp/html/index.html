@@ -22,8 +22,8 @@
         });
 
         $("#btn_sub").on("click", function () {
-            console.log(a);
-            console.log(checkAll(a));
+        /*    console.log(a);
+            console.log(checkAll(a));*/
             if (checkUsername() && checkPassword() && checkAll(a)) {
                 console.log(checkUsername());
                 $.ajax({
@@ -57,8 +57,6 @@
 
     function checkAll(b) {
         let code = $("#EmailCode").val();
-        console.log(code)
-        console.log(b);
         return b === code;
     }
     function sendMail() {
@@ -72,8 +70,13 @@
             //拿到验证码再返回，为了得到b参数
             async: false,
             success: function (data) {
-                b=data;
-                console.log(b);
+                if(data!=="false"){
+                    b=data;
+                    alert("邮件已发送");
+                }else{
+                    alert("发送失败");
+                }
+                /*console.log(b);*/
             },
             error: function () {
                 alert("服务器不在线哦~")
@@ -108,7 +111,7 @@
             return true;
         }else {
             // 红色
-            s_password.innerHTML = "不可用";
+            s_password.innerHTML = "6-12个英文字母（数字）";
             return false;
         }
     }
