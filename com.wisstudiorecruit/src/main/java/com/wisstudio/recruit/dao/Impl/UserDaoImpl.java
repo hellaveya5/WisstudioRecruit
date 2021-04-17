@@ -25,17 +25,21 @@ public class UserDaoImpl implements UserDao {
     }
     @Override
     public boolean add(User user) {
+        System.out.println(user);
         String sql = "insert into tab_user(id,password,name,gender,major,grade,contactNumber," +
-                "choiceofdirection,skillMastered,selfIntroduce) value(?,?,?,?,?,?,?,?,?,?)";
-        int i= sqlUtils.update(sql,"id,name,gender,major,grade," +
-                "contactNumber,choiceofdirection,skillMastered,selfIntroduce");
+                "choiceOfDirection,skillMastered,selfIntroduce) value(?,?,?,?,?,?,?,?,?,?)";
+        int i= sqlUtils.update(sql,user.getId(),user.getPassword(),user.getName(),user.getGender(),
+                user.getMajor(),user.getGrade(),user.getContactNumber(),user.getChoiceOfDirection(),user.getSkillMastered(),
+               user.getSelfIntroduce());
 
         return i>0;
     }
     @Override
     public boolean modify(User user) {
-        String sql = "update tab_uesr set id= ?,password,name= ?,gender= ?,major= ?,grade= ?,contactNumber= ?,choiceofdirection= ?,skillMastered= ?,selfIntroduce= ?";
-        Integer i = sqlUtils.update(sql,"id","name","gender","major","grade","ontactNumber","choiceofdirection","skillMastered","selfIntroduce");
+        String sql = "update tab_uesr set id= ?,password=?,name= ?,gender= ?,major= ?,grade= ?,contactNumber= ?,choiceofdirection= ?,skillMastered= ?,selfIntroduce= ?";
+        Integer i = sqlUtils.update(sql,user.getId(),user.getPassword(),user.getName(),user.getGender(),
+                user.getMajor(),user.getGrade(),user.getContactNumber(),user.getChoiceOfDirection(),user.getSkillMastered(),
+                user.getSelfIntroduce());
         return i > 0;
     }
     @Override
@@ -50,7 +54,21 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findByUsernameAndPassword(String username, String password) {
-        String sql = " slect * from tab_user where ( name = ? and password = ?)";
-        return sqlUtils.query(sql,User.class,username,password).get(0);
+        String sql = " select * from tab_user where ( name = ? and password = ?)";
+        List<User> query = sqlUtils.query(sql, User.class, username, password);
+        if (query.size() != 0){
+            return query.get(0);
+        }
+        return null;
+    }
+    @Override
+    public User findByUsername(String username) {
+        String sql = " select * from tab_user where ( name = ? )";
+        List<User> query = sqlUtils.query(sql, User.class,username);
+        System.out.println("dao:"+query.size());
+        if (query.size() != 0){
+            return query.get(0);
+        }
+        return null;
     }
 }

@@ -16,15 +16,20 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean regist(User user) {
+        if(user==null){
+            return false;
+        }
         UserDao userDaoImpl = new UserDaoImpl();
         List<User> list = new ArrayList<>();
-        list.add(userDaoImpl.findByUsernameAndPassword(user.getName(),user.getPassword()));
-        //返回结果
-        if(list.size()>0){
+        //有没有这个用户信息没有的话注册返回注册成功
+        if(userDaoImpl.findByUsername(user.getName()) == null){
+            userDaoImpl.add(user);
             return true;
         }
-        return false;
-       /*return false;*/
+        //有的话返回注册失败
+            return false;
+
+
     }
 
     /**
