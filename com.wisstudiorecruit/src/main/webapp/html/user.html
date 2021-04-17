@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>用户填写信息页面</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<h1 class="col-sm-offset-4">用户填写界面</h1>
+<script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+<script src="../static/js/bootstrap.min.js"></script>
+</body>
+<div id="loginForm" method="post" accept-charset="utf-8" class="col-xs-offset-4 " >
+<table class="table-bordered table-hover table-responsive">
+    <tr>
+        <td>
+            <div class="form-group container-fluid">
+                <label for="inputUsername" class="col-sm-4 control-label">Username </label>
+                        <input  type="text" class="form-control" id="inputUsername" placeholder="Username">
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="form-group container-fluid">
+                <label for="inputPassword" class="col-sm-4 control-label"> Password </label>
+                        <input type="password" class="form-control" id="inputPassword" placeholder="Password" >
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <div class="radio">
+            <label class="col-sm-offset-2">
+                <input type="radio" name="male" id="male" value="male" checked><span>男
+                </span>
+            </label>
+            <label class="col-sm-offset-4">
+                <input type="radio" name="male" id="female" value="female" ><span>女
+                </span>
+            </label>
+        </div>
+         </td>
+
+    <tr>
+    <td>
+        <select id="choiceOfDirection"class="form-control">
+                <option>前端</option>
+                <option>后台</option>
+        </select>
+    </td>
+    </tr>
+
+    </tr>
+    <tr>
+        <td>
+            <div class="form-group container-fluid">
+                <label for="major" class="col-sm-4 control-label">专业 </label>
+                        <input  type="text" class="form-control" id="major" placeholder="major">
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="form-group container-fluid">
+                <label for="grade" class="col-sm-4 control-label">年级</label>
+                        <input  type="text" class="form-control" id="grade" placeholder="grade">
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="form-group container-fluid">
+                <label for="contactNumber" class="col-sm-4 control-label"> 联系电话 </label>
+                        <input  type="text" class="form-control" id="contactNumber" placeholder="contactNumber">
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td >
+            <div class="form-group container-fluid form-group-lg">
+                <label for="selfintroduce" class="col-sm-4 control-label">自我介绍 </label>
+                <textarea placeholder="不多于200字" id ="selfintroduce" class="form-control" rows="3"></textarea>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="form-group container-fluid">
+                <label for="skillMastered" class="col-sm-4 control-label"> 已经掌握的技能 </label>
+                <textarea placeholder="不多于200字" id ="skillMastered" class="form-control" rows="3"></textarea>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="form-group container-fluid">
+                    <button type="submit" class="btn btn-default" id="btn_sub"  >提交 </button>
+            </div>
+        </td>
+    </tr>
+</table>
+</div>
+
+</html>
