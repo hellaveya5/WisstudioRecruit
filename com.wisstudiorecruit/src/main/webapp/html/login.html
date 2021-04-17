@@ -30,11 +30,11 @@
                                /*for(let key in data){
                                    alert(key+":"+data[key]);
                                }*/
-
-                               alert("登陆成功")
-
+                           console.log("收到"+data);
+                               alert("登陆成功");
                        }else {
-                           alert("登陆失败")
+                           alert("登陆失败");
+                           console.log("收到"+data);
                        }
                     },
                     error:function () {
@@ -81,7 +81,7 @@
                                 <td>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-default" id="btn_sub"  > in </button> <a href="/html/index.html">注册</a>
+                                            <button type="submit" class="btn btn-default" id="btn_sub"  >Log in </button> <a href="/html/index.html">注册</a>
                                             <a href="/html/Admin.html">管理员登录</a>
                                         </div>
                                     </div>

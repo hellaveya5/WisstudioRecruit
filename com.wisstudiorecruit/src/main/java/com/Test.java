@@ -7,6 +7,7 @@ import com.wisstudio.recruit.util.BeanUtils;
 import com.wisstudio.recruit.util.Impl.BeanUtilsImpl;
 import com.wisstudio.recruit.util.Impl.SqlUtilsimpl;
 import com.wisstudio.recruit.util.JDBCUtils;
+import com.wisstudio.recruit.util.MailUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -66,5 +67,15 @@ public class Test {
             e.printStackTrace();
         }
         System.out.println(str);
+    }
+    @org.junit.Test
+    public void test04()throws Exception{
+        String emailAddr = "983338078@qq.com";
+        String randomCode = MailUtils.generateRandomCode(6);
+        try {
+            MailUtils.sendMail(emailAddr,randomCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

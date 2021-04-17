@@ -68,7 +68,6 @@ public class SqlUtilsimpl implements SqlUtils {
                 for (int i = 1; i <=columnCount; i++) {
                     if ("INT".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
                         propertyValues.add(rs.getInt(i));
-                        System.out.println(rs.getInt(i));
                     } else if ("VARCHAR".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
                         propertyValues.add(rs.getString(i));
                     }//else if
@@ -104,9 +103,6 @@ public class SqlUtilsimpl implements SqlUtils {
                 try {
                     assert method != null;
                     //执行
-                    System.out.println(propertyClass.get(i));
-                    System.out.println(sb.toString());
-                    System.out.println(propertyValues.get(j));
                     method.invoke(object, propertyValues.get(j));
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
