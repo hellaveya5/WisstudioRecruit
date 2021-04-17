@@ -13,14 +13,19 @@
 <script src="../static/js/bootstrap.min.js"></script>
 </body>
 <script>
+
     $(function () {
         let a;
-        $("#sendMailBtn").on("click",function () {
+        $("#sendMailBtn").on("click", function () {
+            console.log(a);
             a=sendMail();
-        })
+        });
 
         $("#btn_sub").on("click", function () {
+            console.log(a);
+            console.log(checkAll(a));
             if (checkUsername() && checkPassword() && checkAll(a)) {
+                console.log(checkUsername());
                 $.ajax({
                         type: "get",
                         data: {
@@ -30,9 +35,7 @@
                         url: "/RegistServlet",
                         success: function (data) {
                             if (data != null) {
-                                /*for(let key in data){
-                                        alert(key+":"+data[key]);
-                                    }*/
+                                console.log(data);
                                 alert("注册成功")
                             } else {
                                 alert("注册失败")
@@ -45,37 +48,40 @@
                     }
                 )
             } else {
-
                 alert("请输入完整信息")
             }
 
         });
+
     });
+
+    function checkAll(b) {
+        let code = $("#EmailCode").val();
+        console.log(code)
+        console.log(b);
+        return b === code;
+    }
     function sendMail() {
         let b;
-            $.ajax({
-                type: "get",
-                data: {
-                    email: $("#inputEmail").val(),
-                },
-                url: "/toSendEmail",
-                async: true,
-                success: function (data) {
-                        alert(data);
-                        /*console.log("收到"+b);*/
-                },
-                error: function () {
-                    alert("error")
-                },
-                dataType: "text"
-            });
-            return b;
+        $.ajax({
+            type: "get",
+            data: {
+                email: $("#inputEmail").val(),
+            },
+            url: "/toSendEmail",
+            //拿到验证码再返回，为了得到b参数
+            async: false,
+            success: function (data) {
+                b=data;
+                console.log(b);
+            },
+            error: function () {
+                alert("服务器不在线哦~")
+            },
+            dataType: "text",
+        });
+        return b;
     }
-    function checkAll(a) {
-        let code = $("#EmailCode").val();
-        return a === code;
-    }
-
     function checkUsername() {
         let name = document.getElementById("inputUsername").value;
         let reg_username = /^\w{6,12}$/;
@@ -87,7 +93,7 @@
             return true;
         }else {
             // 红色
-            s_username.innerHTML = "不可用";
+            s_username.innerHTML = "6-12个英文字母（数字）";
             return false;
         }
     }
@@ -106,6 +112,8 @@
             return false;
         }
     }
+
+
 
 </script>
 <div>

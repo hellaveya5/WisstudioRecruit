@@ -32,8 +32,7 @@ public class EmailServlet extends HttpServlet {
             info.setFlag(true);
             try {
                 MailUtils.sendMail(emailAddr,randomCode);
-                info.setMsg("邮箱发送成功");
-                resp.getWriter().write(info.getMsg());
+                resp.getWriter().write(randomCode);
                 Logger.getGlobal().info("邮箱发送成功");
             } catch (Exception e) {
                 info.setMsg("邮箱发送失败");
