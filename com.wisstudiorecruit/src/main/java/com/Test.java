@@ -54,8 +54,8 @@ public class Test {
     @org.junit.Test
     public void test03(){
         Map<String, String[]> map = new HashMap<>();
-        String[] strArray={"1","2","3"};
-        map.put("name",strArray);
+        String[] strArray={"123123123"};
+        map.put("id",strArray);
         map.put("password",strArray);
         BeanUtilsImpl beanUtils = new BeanUtilsImpl();
         User populate = beanUtils.populate(User.class, map);

@@ -36,11 +36,18 @@ public class UserDaoImpl implements UserDao {
     }
     @Override
     public boolean modify(User user) {
-        String sql = "update tab_uesr set id= ?,password=?,name= ?,gender= ?,major= ?,grade= ?,contactNumber= ?,choiceofdirection= ?,skillMastered= ?,selfIntroduce= ?";
-        Integer i = sqlUtils.update(sql,user.getId(),user.getPassword(),user.getName(),user.getGender(),
-                user.getMajor(),user.getGrade(),user.getContactNumber(),user.getChoiceOfDirection(),user.getSkillMastered(),
-                user.getSelfIntroduce());
-        return i > 0;
+        User u = findByUsernameAndPassword(user.getName(),user.getPassword());
+        if(u!=null){
+            String sql = "update tab_user set password=?,name= ?,gender= ?,major= ?,grade= ?,contactNumber= ?,choiceofdirection= ?,skillMastered= ?,selfIntroduce= ? where id=?";
+            Integer i = sqlUtils.update(sql,user.getPassword(),user.getName(),user.getGender(),
+                    user.getMajor(),user.getGrade(),user.getContactNumber(),user.getChoiceOfDirection(),user.getSkillMastered(),
+                    user.getSelfIntroduce(),u.getId());
+            System.out.println(u);
+            return i > 0;
+        }else {
+            return false;
+        }
+
     }
     @Override
     public User login(String username, String password) {

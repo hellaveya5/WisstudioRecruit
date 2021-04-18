@@ -13,6 +13,44 @@
 <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
 <script src="../static/js/bootstrap.min.js"></script>
 </body>
+<script>
+    $(function () {
+        $("#btn_sub").on("click",function () {
+            $.ajax({
+                    type: "get",
+                    data: {
+                        name: $("#inputUsername").val(),
+                        password: $("#inputPassword").val(),
+                        gender:$("#gender").val(),
+                        major:$("#major").val(),
+                        grade:parseInt($("#grade").val()),
+                        contactNumber:parseInt($("#contactNumber").val()),
+                        skillMastered:$("#skillMastered").val(),
+                        selfIntroduce:$("#selfIntroduce").val(),
+                        choiceOfDirection:$("#choiceOfDirection").val()
+                    },
+                    url: "/UserServlet",
+                    async: false,
+                    success: function (data) {
+                        if( data !== 'false'){
+                            /*for(let key in data){
+                                alert(key+":"+data[key]);
+                            }*/
+                            console.log("收到"+data);
+                            alert("登陆成功");
+                        }else {
+                            alert("登陆失败");
+                            console.log("收到"+data);
+                        }
+                    },
+                    error:function () {
+                        alert("异步请求出现问题")
+                    },
+                    dataType:"text"
+                }
+            )});
+    })
+</script>
 <div id="loginForm" method="post" accept-charset="utf-8" class="col-xs-offset-4 " >
 <table class="table-bordered table-hover table-responsive">
     <tr>
@@ -33,17 +71,11 @@
     </tr>
     <tr>
         <td>
-        <div class="radio">
-            <label class="col-sm-offset-2">
-                <input type="radio" name="male" id="male" value="male" checked><span>男
-                </span>
-            </label>
-            <label class="col-sm-offset-4">
-                <input type="radio" name="male" id="female" value="female" ><span>女
-                </span>
-            </label>
-        </div>
-         </td>
+            <select id="gender"class="form-control">
+                <option>男</option>
+                <option>女</option>
+            </select>
+        </td>
 
     <tr>
     <td>
@@ -82,8 +114,8 @@
     <tr>
         <td >
             <div class="form-group container-fluid form-group-lg">
-                <label for="selfintroduce" class="col-sm-4 control-label">自我介绍 </label>
-                <textarea placeholder="不多于200字" id ="selfintroduce" class="form-control" rows="3"></textarea>
+                <label for="selfIntroduce" class="col-sm-4 control-label">自我介绍 </label>
+                <textarea placeholder="不多于200字" id ="selfIntroduce" class="form-control" rows="3"></textarea>
             </div>
         </td>
     </tr>
