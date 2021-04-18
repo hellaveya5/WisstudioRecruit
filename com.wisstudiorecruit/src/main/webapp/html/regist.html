@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>注册页面</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<h1 class="col-sm-offset-5">注册页面</h1>
+<script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+<script src="../static/js/bootstrap.min.js"></script>
+</body>
+<script>
+
+    $(function () {
+        let a;
+        $("#sendMailBtn").on("click", function () {
+            console.log(a);
+            a=sendMail();
+        });
+
+        $("#btn_sub").on("click", function () {
+        /*    console.log(a);
+            console.log(checkAll(a));*/
+            if (checkUsername() && checkPassword() && checkAll(a)) {
+                console.log(checkUsername());
+                $.ajax({
+                        type: "get",
+                        data: {
+                            name: $("#inputUsername").val(),
+                            password: $("#inputPassword").val(),
+                        },
+                        url: "/RegistServlet",
+                        success: function (data) {
+                            if (data != null) {
+                                console.log(data);
+                                alert("注册成功")
+                                window.Location.href = 'html/login.html';
+                            } else {
+                                alert("注册失败")
+                            }
+                        },
+                        error: function () {
+                            alert("异步请求出现问题")
+                        },
+                        dataType: "text"
+                    }
+                )
+            } else {
+                alert("请输入完整信息")
+            }
+
+        });
+
+    });
+
+    function checkAll(b) {
+        let code = $("#EmailCode").val();
+        return b === code;
+    }
+    function sendMail() {
+        let b;
+        $.ajax({
+            type: "get",
+            data: {
+                email: $("#inputEmail").val(),
+            },
+            url: "/toSendEmail",
+            //拿到验证码再返回，为了得到b参数
+            async: false,
+            success: function (data) {
+                if(data!=="false"){
+                    b=data;
+                    alert("邮件已发送");
+                }else{
+                    alert("发送失败");
+                }
+                /*console.log(b);*/
+            },
+            error: function () {
+                alert("服务器不在线哦~")
+            },
+            dataType: "text",
+        });
+        return b;
+    }
+    function checkUsername() {
+        let name = document.getElementById("inputUsername").value;
+        let reg_username = /^\w{6,12}$/;
+        let flag = reg_username.test(name);
+        let s_username = document.getElementById("s_username")
+        if(flag){
+            //绿色success
+            s_username.innerHTML = "可用"
+            return true;
+        }else {
+            // 红色
+            s_username.innerHTML = "6-12个英文字母（数字）";
+            return false;
+        }
+    }
+    function checkPassword() {
+        let password = document.getElementById("inputPassword").value;
+        let reg_password = /^\w{6,12}$/;
+        let flag = reg_password.test(password);
+        let s_password = document.getElementById("s_password");
+        if(flag){
+            //绿色success
+            s_password.innerHTML = "可用";
+            return true;
+        }else {
+            // 红色
+            s_password.innerHTML = "6-12个英文字母（数字）";
+            return false;
+        }
+    }
+
+</script>
+<div>
+    <div class="form-horizontal  container-fluid col-sm-offset-4">
+        <div class="login_layout">
+            <div class="login_form">
+                <!--表单-->
+                <div id="errorMsg" class="alert-danger" ></div>
+                <div  id="form"  method="get" accept-charset="utf-8" >
+                    <table class="table-bordered table-hover">
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label for="inputUsername" class="col-sm-2 control-label">Username </label>
+                                    <div class="col-sm-10">
+                                        <div class="col-sm-10">
+                                            <input  type="text" class="form-control" id="inputUsername" placeholder="Username">
+                                            <span id="s_username"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label for="inputPassword" class="col-sm-2 control-label"> Password </label>
+                                    <div class="col-sm-10">
+                                        <div class="col-sm-10">
+                                            <input type="password" class="form-control" id="inputPassword" placeholder="Password" autocomplete>
+                                            <span id="s_password" ></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label for="inputEmail" class="col-sm-2 control-label"> Email </label>
+                                    <div class="col-sm-10">
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputEmail" placeholder="Email " autocomplete>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label for="EmailCode" class="col-sm-2 control-label"> EmailCode </label>
+                                    <div class="col-sm-10">
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="EmailCode" placeholder="EmailCode" autocomplete>
+                                        </div>
+                                    </div>
+                                    <input style="float:right"  type="button" value="发送验证码" id="sendMailBtn">
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default" id="btn_sub" >Sign up </button>
+                                        <a href="/html/adminLogin.html"> 管理员登录  </a><a href="/html/login.html">用户登录</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+</html>

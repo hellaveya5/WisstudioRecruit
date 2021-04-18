@@ -22,8 +22,12 @@ public class AdminDaoImpl implements AdminDao {
     }
     @Override
     public Administrator login(String name, String password) {
-        String sql ="select * from administrator where where ( username = ? and password = ?)";
-        return sqlUtils.query(sql, Administrator.class,name,password).get(0);
+        String sql ="select * from administrator where ( name = ? and password = ?)";
+        List<Administrator> query = sqlUtils.query(sql, Administrator.class, name, password);
+        if(query.size()==0){
+            return null;
+        }
+        return query.get(0);
 
     }
 

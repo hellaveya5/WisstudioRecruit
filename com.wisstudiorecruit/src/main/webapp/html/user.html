@@ -37,14 +37,15 @@
                                 alert(key+":"+data[key]);
                             }*/
                             console.log("收到"+data);
-                            alert("登陆成功");
+                            alert("修改成功");
+                            location.href = 'html/index.html'
                         }else {
-                            alert("登陆失败");
+                            alert("修改失败");
                             console.log("收到"+data);
                         }
                     },
                     error:function () {
-                        alert("异步请求出现问题")
+                        alert("服务器不在线哦~")
                     },
                     dataType:"text"
                 }
