@@ -15,6 +15,14 @@
 </body>
 <script>
     $(function () {
+        //将上一页面的用户名和密码传到这一个页面
+        let name = window.localStorage.getItem("name");
+        console.log(name);
+        let password = window.localStorage.getItem("password");
+        $("#inputUsername").val(name);
+        $("#inputPassword").val(password);
+
+        //异步提交表单
         $("#btn_sub").on("click",function () {
             $.ajax({
                     type: "get",
@@ -30,7 +38,6 @@
                         choiceOfDirection:$("#choiceOfDirection").val()
                     },
                     url: "/UserServlet",
-                    async: false,
                     success: function (data) {
                         if( data !== 'false'){
                             /*for(let key in data){
@@ -38,6 +45,8 @@
                             }*/
                             console.log("收到"+data);
                             alert("修改成功");
+                            //清除数据
+                            window.localStorage.clear();
                             location.href = 'html/index.html'
                         }else {
                             alert("修改失败");
@@ -51,6 +60,9 @@
                 }
             )});
     })
+    function getValue(){
+
+    }
 </script>
 <div id="loginForm" method="post" accept-charset="utf-8" class="col-xs-offset-4 " >
 <table class="table-bordered table-hover table-responsive">
