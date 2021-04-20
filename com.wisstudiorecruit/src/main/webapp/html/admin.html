@@ -12,11 +12,27 @@
 <h1></h1>
 <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
 <script src="../static/js/bootstrap.min.js"></script>
-<div>
-    <input type ="text" id ="id" placeholder="学号">
-    <input type ="text" id ="grade" placeholder="年级">
-    <input type ="text" id ="major" placeholder="专业">
-</div>
+
+<script>
+    $(function () {
+     collectAllUser();
+    })
+    function collectAllUser() {
+
+    }
+</script>
+<td class="form-group-lg">
+    <div class="col-sm-offset-4 row">
+        <input type ="text" id ="condition" >
+        <select id="selectBox">
+        <option id="id">学号</option>
+        <option id="name">姓名</option>
+        <option id="grade">年级</option><a>删除</a>
+    </select>
+        <a action="#">查询</a>
+    </div>
+</td>
+
 
 </body>
 

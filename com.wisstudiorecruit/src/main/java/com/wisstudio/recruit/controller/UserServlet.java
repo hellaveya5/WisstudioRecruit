@@ -39,7 +39,7 @@ public class UserServlet extends HttpServlet {
         user.setPassword(req.getParameter(user.getPassword()));
         user.setContactNumber(req.get);*/
 
-        resp.setContentType("text/html;utf-8");
+        resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().print(info.isFlag());
     }
 

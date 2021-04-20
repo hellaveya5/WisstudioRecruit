@@ -14,10 +14,9 @@ public class User {
     String major;
     Integer grade;
     Integer contactNumber;
-    String choiceOfDirection;
     String skillMastered;
     String selfIntroduce;
-
+    String choiceOfDirection;
     public Integer getId() {
         return id;
     }

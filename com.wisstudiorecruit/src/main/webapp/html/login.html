@@ -32,7 +32,10 @@
                                }*/
                            console.log("收到"+data);
                                alert("登陆成功");
-                           window.location.href = '/html/user.html';
+                               //将数据保存到本地
+                          window.localStorage.setItem("name", $("#inputUsername").val());
+                          window.localStorage.setItem("password",$("#inputPassword").val())
+                          window.location.href = "/html/user.html"
                        }else {
                            alert("登陆失败");
                            console.log("收到"+data);
@@ -51,7 +54,7 @@
         <div class="login_layout">
             <div class="login_form">
                 <!--表单-->
-                <div id="errorMsg" class="alert-danger"></div>
+                <form id="errorMsg" class="alert-danger"></form>
                 <div id="loginForm" method="post" accept-charset="utf-8" >
                     <table class="table-bordered table-hover">
                             <tr>

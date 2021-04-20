@@ -78,4 +78,19 @@ public class Test {
             e.printStackTrace();
         }
     }
+    public void test05(){
+        Map<String, String[]> map = new HashMap<>();
+
+
+        BeanUtilsImpl beanUtils = new BeanUtilsImpl();
+        User populate = beanUtils.populate(User.class, map);
+        ObjectMapper mapper = new ObjectMapper();
+        String str=null;
+        try {
+            str=mapper.writeValueAsString(populate);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(str);
+    }
 }

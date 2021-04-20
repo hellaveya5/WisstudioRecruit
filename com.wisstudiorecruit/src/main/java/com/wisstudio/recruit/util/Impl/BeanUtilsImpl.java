@@ -29,7 +29,7 @@ public class BeanUtilsImpl implements BeanUtils {
             propertyClass.add(fiel.getType());
             propertyKeys.add(fiel.getName());
         }
-        //取值处理不了含有数字类型的情况
+        //取值
         Iterator<String> iter = map.keySet().iterator();
         try {
             while (iter.hasNext()) {
@@ -37,8 +37,9 @@ public class BeanUtilsImpl implements BeanUtils {
                /* System.out.println(key);*/
                 mapKeys.add(key);
                 String a = map.get(key)[0];
-
+                System.out.println(a);
                     for(int j=0;j<propertyKeys.size();j++){
+                        System.out.println(propertyKeys.get(j)+":"+key);
                         if(propertyKeys.get(j).equalsIgnoreCase(key)){
                             if ("class java.lang.Integer".equalsIgnoreCase(propertyClass.get(j).toString())) {
                                 Integer b = Integer.parseInt(a);
