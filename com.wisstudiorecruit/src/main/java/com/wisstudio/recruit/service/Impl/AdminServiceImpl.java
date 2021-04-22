@@ -31,4 +31,9 @@ public class AdminServiceImpl implements AdminService {
     public List<User> select(Object obj) {
         return new AdminServiceImpl().select(obj);
     }
+
+    @Override
+    public List<User> findAll() {
+        return new AdminServiceImpl().findAll();
+    }
 }

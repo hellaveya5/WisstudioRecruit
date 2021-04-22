@@ -46,8 +46,8 @@
                             console.log("收到"+data);
                             alert("修改成功");
                             //清除数据
-                            window.localStorage.clear();
-                            location.href = 'html/index.html'
+
+                            location.href = "/html/index.html";
                         }else {
                             alert("修改失败");
                             console.log("收到"+data);
@@ -69,17 +69,20 @@
             },
             url:"/getUserDataServlet",
             success:function (data) {
-                for(let key in data) {
-                    console.log(key + ":" + data[key]);
+                if(data!=="false"){
+                    alert("成功返回信息")
+                    $("#gender").val(data.gender);
+                    $("#choiceOfDirection").val(data.choiceOfDirection);
+                    $("#major").val(data.major);
+                    $("#grade").val(data.grade);
+                    $("#contactNumber").val(data.contactNumber);
+                    $("#selfIntroduce").val(data.selfIntroduce);
+                    $("#skillMastered").val(data.skillMastered);
+
                 }
-                console.log("查询用户返回信息成功");
-                $("#gender").val(data.gender);
-                $("#choiceOfDirection").val(data.choiceOfDirection);
-                $("#major").val(data.major);
-                $("#grade").val(data.grade);
-                $("#contactNumber").val(data.contactNumber);
-                $("#selfIntroduce").val(data.selfIntroduce);
-                $("#skillMastered").val(data.skillMastered);
+               else{
+                   alert("查询信息失败")
+                }
             },
             error:function () {
                 console.log("服务器问题");

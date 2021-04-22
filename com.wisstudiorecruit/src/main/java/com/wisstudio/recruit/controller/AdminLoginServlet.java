@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author 98333
  */
 @WebServlet(urlPatterns = "/AdminServlet")
-public class AdminServlet extends HttpServlet {
+public class AdminLoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
@@ -45,4 +45,6 @@ public class AdminServlet extends HttpServlet {
             resp.getWriter().print(info.isFlag());
         }
     }
+
+
 }

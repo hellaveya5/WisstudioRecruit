@@ -62,4 +62,5 @@ public class UserServiceImpl implements UserService {
         userDaoImpl = new UserDaoImpl();
         return userDaoImpl.add(user);
     }
+
 }

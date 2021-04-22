@@ -34,4 +34,10 @@ public interface AdminService {
      * @return 返回符合条件用户集合
      */
     public List<User> select(Object obj);
+
+    /**
+     * 列表查询用户
+     * @return 所有表中的用户
+     */
+    public List<User> findAll();
 }

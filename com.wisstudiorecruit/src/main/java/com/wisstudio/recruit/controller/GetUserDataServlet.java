@@ -46,6 +46,8 @@ public class GetUserDataServlet extends HttpServlet {
             Logger.getGlobal().info("返回用户数据成功");
         }else {
             Logger.getGlobal().info("返回数据失败");
+            info.setFlag(false);
+            resp.getWriter().print(info.isFlag());
         }
 
     }

@@ -21,9 +21,15 @@ public interface AdminDao  {
      */
     boolean delete(Integer id);
     /**
-     *
+     *查询所有用户返回用户集合
      * @param user 条件
      * @return  用户集合
      */
     List<User> select (User user);
+
+    /**
+     *
+     * @return
+     */
+    List<User> findAll();
 }

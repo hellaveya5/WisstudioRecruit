@@ -7,6 +7,7 @@ import com.wisstudio.recruit.util.SqlUtils;
 import com.wisstudio.recruit.util.Impl.SqlUtilsimpl;
 import com.wisstudio.recruit.util.JDBCUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdminDaoImpl implements AdminDao {
@@ -36,8 +37,19 @@ public class AdminDaoImpl implements AdminDao {
         return false;
     }
 
+
     @Override
     public List<User> select(User user) {
-        return null;
+
+      /*  String sql = "select *from tab_user ";
+        sqlUtils.query(sql,User.class,);*/
+      return null;
+    }
+    @Override
+    public List<User> findAll(){
+        String sql = "select * from tab_user";
+       List <User> users= sqlUtils.query(sql,User.class);
+       return users;
+
     }
 }
