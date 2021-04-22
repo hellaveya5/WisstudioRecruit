@@ -15,21 +15,60 @@
 
 <script>
     $(function () {
+    $("#selectAll").on("click",function () {
+        $.ajax({
+            type:"get",
+            url:"/AdminSearchServlet",
+            success:function (data) {
+                if(data!=='false'){
+                    $("#userList tr:not(:first)").empty();
+                    for( let i = 0; i < data.length; i++ ) {
+                        //动态创建一个tr行标签,并且转换成jQuery对象
+                        let $trTemp = $("<tr> </tr>");
+                        //往行里面追加 td单元格
+                        $trTemp.append("<td>"+"<input type='checkbox'>" +"</td>")
+                        $trTemp.append("<td>"+ data[i].name +"</td>");
+                        $trTemp.append("<td>"+ data[i].password +"</td>");
+                        $trTemp.append("<td>"+ data[i].gender +"</td>");
+                        $trTemp.append("<td>"+ data[i].choiceOfDirection +"</td>");
+                        $trTemp.append("<td>"+ data[i].major +"</td>");
+                        $trTemp.append("<td>"+ data[i].grade +"</td>");
+                        $trTemp.append("<td>"+ data[i].contactNumber +"</td>");
+                        $trTemp.append("<td>"+ data[i].selfIntroduce +"</td>");
+                        $trTemp.append("<td>"+ data[i].skillMastered+"</td>");
+                        $trTemp.append("<td colspan='8' align='center'>"+ "<a class='btn btn-primary' >"+ "修改"+"&nbsp" +"</a>"+"<a class='btn btn-primary' >" + "删除" +"</a>"+ "</td>")
+                        // $("#J_TbData").append($trTemp);
+                        $trTemp.appendTo("#userList");
+                    }
+                    console.log("查询成功");
+                }else{
+                    console.log("查询失败");
+                }
+            },
+            error:function () {
+                console.log("服务器问题");
+            },
+            dataType:"json"
+        });
+    })
 
+    })
 
-    }
 </script>
 <div class="container-fluid">
     <div>
-        <h3 class="col-sm-offset-5">用户信息列表<a id="selectAll" href="/AdminSearchServlet"><small>获取所有用户信息</small> </a></h3>
+        <h3 class="col-sm-offset-5">用户信息列表<button id="selectAll" ><small>获取所有用户信息</small> </button></h3>
     </div>
 
     <div style="float: right">
         <a class="btn btn-primary" href="/html/user.html">添加</a>
         <a class="btn btn-primary" href="#">删除选中</a>
     </div>
-    <table border="1" class="table table-bordered table-hover ">
-        <tr class="success">
+
+
+
+    <table id ="userList" border="1" class="table table-bordered table-hover">
+        <tr class="success" disabled="#">
             <th><input type="checkbox"> </th>
             <th>姓名</th>
             <th>密码</th>
@@ -42,11 +81,8 @@
             <th>已经掌握的技能</th>
             <th>操作</th>
         </tr>
+
     </table>
-
-
-
-
 </div>
 
 
