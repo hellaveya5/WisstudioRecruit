@@ -30,8 +30,8 @@ public class AdminSearchServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ResultInfo info = new ResultInfo();
         AdminDaoImpl adminDao = new AdminDaoImpl();
-        List<User> allUser = adminDao.findAll();
         ObjectMapper objectMapper = new ObjectMapper();
+        List<User> allUser = adminDao.findAll();
         String allUs = objectMapper.writeValueAsString(allUser);
         resp.setContentType("text/html;charset = utf-8");
         resp.getWriter().write(allUs);

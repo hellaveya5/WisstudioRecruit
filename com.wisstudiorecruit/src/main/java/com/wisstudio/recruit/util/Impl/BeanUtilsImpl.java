@@ -37,9 +37,7 @@ public class BeanUtilsImpl implements BeanUtils {
                /* System.out.println(key);*/
                 mapKeys.add(key);
                 String a = map.get(key)[0];
-                System.out.println(a);
                     for(int j=0;j<propertyKeys.size();j++){
-                        System.out.println(propertyKeys.get(j)+":"+key);
                         if(propertyKeys.get(j).equalsIgnoreCase(key)){
                             if ("class java.lang.Integer".equalsIgnoreCase(propertyClass.get(j).toString())) {
                                 Integer b = Integer.parseInt(a);
@@ -81,11 +79,6 @@ public class BeanUtilsImpl implements BeanUtils {
                     } catch (NoSuchMethodException e) {
                         e.printStackTrace();
                     }
-                    //测试用例
-                 /*   System.out.println(propertyValues.get(i));
-                    System.out.println(mapKeys.get(i));
-                    System.out.println(sb.toString());
-                    System.out.println(propertyClass.get(j));*/
                     try {
                         assert method != null;
                         method.invoke(object, propertyValues.get(i));

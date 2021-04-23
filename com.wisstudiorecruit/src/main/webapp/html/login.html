@@ -27,16 +27,12 @@
                     url: "/LoginServlet",
                     success: function (data) {
                        if(data!=null){
-                               /*for(let key in data){
-                                   alert(key+":"+data[key]);
-                               }*/
                            console.log("收到"+data);
                                alert("登陆成功");
                                //将数据保存到本地
-
                           window.localStorage.setItem("name", $("#inputUsername").val());
-                          window.localStorage.setItem("password",$("#inputPassword").val())
-                          window.location.href = "/html/user.html"
+                          window.localStorage.setItem("password",$("#inputPassword").val());
+                          window.location.href = "/html/user.html";
                        }else {
                            alert("登陆失败");
                            console.log("收到"+data);

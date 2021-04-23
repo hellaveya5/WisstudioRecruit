@@ -25,12 +25,10 @@
                     url: "/AdminLoginServlet",
                     success: function (data) {
                         if(data!=='false'){
-                            /*for(let key in data){
-                                alert(key+":"+data[key]);
-                            }*/
                             console.log("收到登录"+data);
                             alert("登陆成功");
                             window.location.href = '/html/admin.html';
+                            localStorage.clear();
                         }else {
                             alert("登陆失败");
                             console.log("收到登录"+data);

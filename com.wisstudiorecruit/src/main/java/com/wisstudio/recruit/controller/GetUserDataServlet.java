@@ -32,7 +32,6 @@ public class GetUserDataServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ResultInfo info = new ResultInfo();
-
         UserDao userDao= new UserDaoImpl();
         BeanUtils beanUtils = new BeanUtilsImpl();
         User user = beanUtils.populate(User.class, req.getParameterMap());

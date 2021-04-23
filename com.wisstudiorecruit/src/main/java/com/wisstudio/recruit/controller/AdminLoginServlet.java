@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 /**
  * @author 98333
  */
-@WebServlet(urlPatterns = "/AdminServlet")
+@WebServlet(urlPatterns = "/AdminLoginServlet")
 public class AdminLoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

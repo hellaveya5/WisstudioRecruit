@@ -9,7 +9,7 @@
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1 class="col-sm-offset-4">用户填写界面</h1>
+<h1 id ="window-title" class="col-sm-offset-4">用户填写界面</h1>
 <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
 <script src="../static/js/bootstrap.min.js"></script>
 </body>
@@ -18,16 +18,64 @@
         //将上一页面的用户名和密码传到这一个页面
         let name = window.localStorage.getItem("name");
         console.log(name);
-        let password = window.localStorage.getItem("password");
-        $("#inputUsername").val(name);
-        $("#inputPassword").val(password);
-        getValue(name,password);
+        if(name){
+            let password = window.localStorage.getItem("password");
+            $("#inputUsername").val(name);
+            $("#inputPassword").val(password);
+            getValue(name,password);
+            console.log("用户进入该界面");
+
+        }else {
+            console.log("管理员进入增加用户");
+            $("#window-title").html("管理员增加用户界面")
+        }
+
         //异步提交表单
         $("#btn_sub").on("click",function () {
-            $.ajax({
+            let title = $("#window-title").html();
+            console.log(title)
+            if(title==='用户填写信息页面'){
+                $.ajax({
+                        type: "get",
+                        data: {
+                            Id:$("#Id").val(),
+                            name: $("#inputUsername").val(),
+                            password: $("#inputPassword").val(),
+                            gender:$("#gender").val(),
+                            major:$("#major").val(),
+                            grade:parseInt($("#grade").val()),
+                            contactNumber:parseInt($("#contactNumber").val()),
+                            skillMastered:$("#skillMastered").val(),
+                            selfIntroduce:$("#selfIntroduce").val(),
+                            choiceOfDirection:$("#choiceOfDirection").val()
+                        },
+                        url: "/UserServlet",
+                        success: function (data) {
+                            if( data !== 'false'){
+                                /*for(let key in data){
+                                    alert(key+":"+data[key]);
+                                }*/
+                                console.log("收到"+data);
+                                alert("修改成功");
+                                //清除数据
+                                localStorage.clear();
+                                location.href = "/html/index.html";
+                            }else {
+                                alert("修改失败");
+                                console.log("收到"+data);
+                            }
+                        },
+                        error:function () {
+                            alert("服务器不在线哦~")
+                        },
+                        dataType:"text"
+                    }
+                )
+            }else if(title==='管理员增加用户界面'){
+                $.ajax({
                     type: "get",
                     data: {
-
+                        Id:$("#Id").val(),
                         name: $("#inputUsername").val(),
                         password: $("#inputPassword").val(),
                         gender:$("#gender").val(),
@@ -38,28 +86,19 @@
                         selfIntroduce:$("#selfIntroduce").val(),
                         choiceOfDirection:$("#choiceOfDirection").val()
                     },
-                    url: "/UserServlet",
+                    url: "/AdminAddServlet",
                     success: function (data) {
-                        if( data !== 'false'){
-                            /*for(let key in data){
-                                alert(key+":"+data[key]);
-                            }*/
-                            console.log("收到"+data);
-                            alert("修改成功");
+                            console.log(data);
+                            alert(data);
                             //清除数据
-
-                            location.href = "/html/index.html";
-                        }else {
-                            alert("修改失败");
-                            console.log("收到"+data);
-                        }
                     },
                     error:function () {
                         alert("服务器不在线哦~")
                     },
                     dataType:"text"
-                }
-            )});
+                })
+            }
+            });
     });
     function getValue(name , password){
         $.ajax({
@@ -72,7 +111,7 @@
             success:function (data) {
                 if(data!=="false"){
                     alert("成功返回信息")
-                    $("#Id").val(data.studentId);
+                    $("#studentId").val(data.studentId);
                     $("#gender").val(data.gender);
                     $("#choiceOfDirection").val(data.choiceOfDirection);
                     $("#major").val(data.major);
@@ -97,8 +136,8 @@
     <tr>
         <td>
             <div class="form-group container-fluid">
-                <label for="Id" class="col-sm-4 control-label">   StudentId </label>
-                <input  type="text" class="form-control" id="Id" placeholder="StudentId">
+                <label for="studentId" class="col-sm-4 control-label">   studentId </label>
+                <input  type="text" class="form-control" id="studentId" placeholder="studentId">
             </div>
         </td>
     </tr>

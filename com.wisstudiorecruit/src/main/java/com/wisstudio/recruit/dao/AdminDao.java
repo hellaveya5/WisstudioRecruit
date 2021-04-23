@@ -28,8 +28,15 @@ public interface AdminDao  {
     List<User> select (User user);
 
     /**
-     *
-     * @return
+     *查询所有用户返回用户集合
+     * @return 用户集合
      */
     List<User> findAll();
+
+    /**
+     * 增加用户
+     * @param user 用户
+     * @return  成功与否
+     */
+    boolean addUser(User user);
 }

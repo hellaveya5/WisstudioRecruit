@@ -52,4 +52,14 @@ public class AdminDaoImpl implements AdminDao {
        return users;
 
     }
+
+    @Override
+    public boolean addUser(User user) {
+        String sql = "insert into tab_user(id,password,name,gender,major,grade,contactNumber," +
+                "choiceOfDirection,skillMastered,selfIntroduce,studentId) value(?,?,?,?,?,?,?,?,?,?,?)";
+        int i= sqlUtils.update(sql,user.getId(),user.getPassword(),user.getName(),user.getGender(),
+                user.getMajor(),user.getGrade(),user.getContactNumber(),user.getChoiceOfDirection(),user.getSkillMastered(),
+                user.getSelfIntroduce(),user.getStudentId());
+        return i>0;
+    }
 }

@@ -66,7 +66,7 @@ public class SqlUtilsimpl implements SqlUtils {
             columnCount= rs.getMetaData().getColumnCount();
             while (rs.next()) {
                 for (int i = 1; i <=columnCount; i++) {
-                    System.out.println(rs.getMetaData().getColumnTypeName(i).toString());
+
                     if ("INT".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
 
                         propertyValues.add(rs.getInt(i));
@@ -97,7 +97,7 @@ public class SqlUtilsimpl implements SqlUtils {
                 //Stringbuilder获取方法的字段
                 StringBuilder sb = new StringBuilder("set");
                 sb.append(propertyKeys.get(i).substring(0, 1).toUpperCase()).append((propertyKeys.get(i).substring(1)));
-                System.out.println("操作"+sb.toString());
+
                 //执行方法对象
                 Method method = null;
                 try {
