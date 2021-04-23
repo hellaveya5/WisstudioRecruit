@@ -50,7 +50,9 @@ public class BeanUtilsImpl implements BeanUtils {
                                 propertyValues.add(a);
                                /* System.out.println("stirng");*/
                                 break;
-                            } else {
+                            } else if ("class java.lang.bigint".equalsIgnoreCase(propertyClass.get(j).toString())) {
+                                propertyValues.add(a);
+                            }else {
                                 throw new TypeNotEnoughException();
                             }
                         }

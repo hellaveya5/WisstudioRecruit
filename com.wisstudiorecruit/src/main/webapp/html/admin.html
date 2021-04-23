@@ -24,9 +24,10 @@
                     $("#userList tr:not(:first)").empty();
                     for( let i = 0; i < data.length; i++ ) {
                         //动态创建一个tr行标签,并且转换成jQuery对象
-                        let $trTemp = $("<tr> </tr>");
+                        let $trTemp = $("<tr id="+i+">"+" </tr>");
                         //往行里面追加 td单元格
                         $trTemp.append("<td>"+"<input type='checkbox'>" +"</td>")
+                        $trTemp.append("<td>"+ data[i].studentId +"</td>");
                         $trTemp.append("<td>"+ data[i].name +"</td>");
                         $trTemp.append("<td>"+ data[i].password +"</td>");
                         $trTemp.append("<td>"+ data[i].gender +"</td>");
@@ -36,7 +37,7 @@
                         $trTemp.append("<td>"+ data[i].contactNumber +"</td>");
                         $trTemp.append("<td>"+ data[i].selfIntroduce +"</td>");
                         $trTemp.append("<td>"+ data[i].skillMastered+"</td>");
-                        $trTemp.append("<td colspan='8' align='center'>"+ "<a class='btn btn-primary' >"+ "修改"+"&nbsp" +"</a>"+"<a class='btn btn-primary' >" + "删除" +"</a>"+ "</td>")
+                        $trTemp.append("<td colspan='8' align='center'>"+ "<a id = "+i+" class='btn btn-primary' href='/html/user.html' >"+ "修改"+"&nbsp" +"</a>"+"<a class='btn btn-primary' >" + "删除" +"</a>"+ "</td>")
                         // $("#J_TbData").append($trTemp);
                         $trTemp.appendTo("#userList");
                     }
@@ -59,17 +60,33 @@
     <div>
         <h3 class="col-sm-offset-5">用户信息列表<button id="selectAll" ><small>获取所有用户信息</small> </button></h3>
     </div>
+<div style="float: left">
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="searchId">学号</label>
+            <input type="text" class="form-control" id="searchId" placeholder="studentId">
+        </div>
+        <div class="form-group">
+            <label for="searchName">姓名</label>
+            <input type="text" class="form-control" id="searchName" placeholder="name">
+        </div>
+        <div class="form-group">
+            <label for="searchClass">班级</label>
+            <input type="text" class="form-control" id="searchClass" placeholder="name">
+        </div>
+        <button type="submit" class="btn btn-default"> 查找</button>
+    </form>
 
+</div>
     <div style="float: right">
         <a class="btn btn-primary" href="/html/user.html">添加</a>
         <a class="btn btn-primary" href="#">删除选中</a>
     </div>
 
-
-
     <table id ="userList" border="1" class="table table-bordered table-hover">
         <tr class="success" disabled="#">
             <th><input type="checkbox"> </th>
+            <th>学号</th>
             <th>姓名</th>
             <th>密码</th>
             <th>性别</th>
@@ -81,8 +98,32 @@
             <th>已经掌握的技能</th>
             <th>操作</th>
         </tr>
-
     </table>
+    <div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <span style="font-size:20px">待实现目录条</span>
+            </ul>
+
+        </nav>
+    </div>
+
+
 </div>
 
 

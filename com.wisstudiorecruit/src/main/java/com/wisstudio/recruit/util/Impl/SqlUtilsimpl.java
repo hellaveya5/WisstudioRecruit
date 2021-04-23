@@ -66,13 +66,17 @@ public class SqlUtilsimpl implements SqlUtils {
             columnCount= rs.getMetaData().getColumnCount();
             while (rs.next()) {
                 for (int i = 1; i <=columnCount; i++) {
+                    System.out.println(rs.getMetaData().getColumnTypeName(i).toString());
                     if ("INT".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
-                        System.out.println("INT"+rs.getString(i));
+
                         propertyValues.add(rs.getInt(i));
                     } else if ("VARCHAR".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
-                        System.out.println("VARCHAR"+rs.getString(i));
+
                         propertyValues.add(rs.getString(i));
                     }//else if
+                    else if ("bigint".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
+                    propertyValues.add(rs.getLong(i));
+                }
                     else {
                         throw new TypeNotEnoughException();
                     }
@@ -170,6 +174,9 @@ public class SqlUtilsimpl implements SqlUtils {
                     } else if ("VARCHAR".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
                         propertyValues.add(rs.getString(i));
                     }//else if
+                    else if ("bigint".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
+                        propertyValues.add(rs.getLong(i));
+                    }
                     else {
                         throw new TypeNotEnoughException();
                     }

@@ -27,6 +27,7 @@
             $.ajax({
                     type: "get",
                     data: {
+
                         name: $("#inputUsername").val(),
                         password: $("#inputPassword").val(),
                         gender:$("#gender").val(),
@@ -59,7 +60,7 @@
                     dataType:"text"
                 }
             )});
-    })
+    });
     function getValue(name , password){
         $.ajax({
             type:"get",
@@ -71,6 +72,7 @@
             success:function (data) {
                 if(data!=="false"){
                     alert("成功返回信息")
+                    $("#Id").val(data.studentId);
                     $("#gender").val(data.gender);
                     $("#choiceOfDirection").val(data.choiceOfDirection);
                     $("#major").val(data.major);
@@ -78,7 +80,6 @@
                     $("#contactNumber").val(data.contactNumber);
                     $("#selfIntroduce").val(data.selfIntroduce);
                     $("#skillMastered").val(data.skillMastered);
-
                 }
                else{
                    alert("查询信息失败")
@@ -93,6 +94,14 @@
 </script>
 <div id="loginForm" method="post" accept-charset="utf-8" class="col-xs-offset-4 " >
 <table class="table-bordered table-hover table-responsive">
+    <tr>
+        <td>
+            <div class="form-group container-fluid">
+                <label for="Id" class="col-sm-4 control-label">   StudentId </label>
+                <input  type="text" class="form-control" id="Id" placeholder="StudentId">
+            </div>
+        </td>
+    </tr>
     <tr>
         <td>
             <div class="form-group container-fluid">

@@ -27,10 +27,10 @@ public class UserDaoImpl implements UserDao {
     public boolean add(User user) {
         System.out.println(user);
         String sql = "insert into tab_user(id,password,name,gender,major,grade,contactNumber," +
-                "choiceOfDirection,skillMastered,selfIntroduce) value(?,?,?,?,?,?,?,?,?,?)";
+                "choiceOfDirection,skillMastered,selfIntroduce,studentId) value(?,?,?,?,?,?,?,?,?,?)";
         int i= sqlUtils.update(sql,user.getId(),user.getPassword(),user.getName(),user.getGender(),
                 user.getMajor(),user.getGrade(),user.getContactNumber(),user.getChoiceOfDirection(),user.getSkillMastered(),
-               user.getSelfIntroduce());
+               user.getSelfIntroduce(),user.getStudentId());
 
         return i>0;
     }
@@ -38,10 +38,10 @@ public class UserDaoImpl implements UserDao {
     public boolean modify(User user) {
         User u = findByUsernameAndPassword(user.getName(),user.getPassword());
         if(u!=null){
-            String sql = "update tab_user set password=?,name= ?,gender= ?,major= ?,grade= ?,contactNumber= ?,choiceofdirection= ?,skillMastered= ?,selfIntroduce= ? where id=?";
+            String sql = "update tab_user set password=?,name= ?,gender= ?,major= ?,grade= ?,contactNumber= ?,choiceofdirection= ?,skillMastered= ?,selfIntroduce= ?,studentId=? where id=?";
             Integer i = sqlUtils.update(sql,user.getPassword(),user.getName(),user.getGender(),
                     user.getMajor(),user.getGrade(),user.getContactNumber(),user.getChoiceOfDirection(),user.getSkillMastered(),
-                    user.getSelfIntroduce(),u.getId());
+                    user.getSelfIntroduce(),user.getStudentId(),u.getId());
             System.out.println(u);
             return i > 0;
         }else {
