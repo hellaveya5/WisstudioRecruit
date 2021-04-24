@@ -32,7 +32,6 @@ public class AdminDeleteServlet extends HttpServlet {
         resp.setContentType("text/html;charset=utf-8");
         ResultInfo info = new ResultInfo();
         BeanUtilsImpl beanUtils = new BeanUtilsImpl();
-        ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String[]> map = req.getParameterMap();
         User user = beanUtils.populate(User.class, map);
         info.setFlag((new AdminServiceImpl().delete(user.getStudentId())));

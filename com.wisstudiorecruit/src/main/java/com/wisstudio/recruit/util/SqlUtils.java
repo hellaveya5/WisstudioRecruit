@@ -32,4 +32,5 @@ public interface SqlUtils {
      * @return List <T>
      */
      <T> List <T> query (String sql,Class<T> clazz);
+
 }

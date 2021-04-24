@@ -10,6 +10,9 @@ import com.wisstudio.recruit.util.JDBCUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author 98333
+ */
 public class AdminDaoImpl implements AdminDao {
     private JDBCUtils dbUtil = new JDBCUtils();
     private SqlUtils sqlUtils;
@@ -52,7 +55,6 @@ public class AdminDaoImpl implements AdminDao {
         String sql = "select * from tab_user";
        List <User> users= sqlUtils.query(sql,User.class);
        return users;
-
     }
 
     @Override

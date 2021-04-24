@@ -30,7 +30,6 @@
             console.log("管理员进入增加用户");
             $("#window-title").html("管理员增加用户界面");
         }
-
         //异步提交表单
         $("#btn_sub").on("click",function () {
             let title = $("#window-title").html();
@@ -102,7 +101,6 @@
                             }else {
                                 location.href = "/html/admin.html"
                             }
-
                     },
                     error:function () {
                         alert("服务器不在线哦~")

@@ -28,13 +28,14 @@ public class AdminSearchServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ResultInfo info = new ResultInfo();
+       /* ResultInfo info = new ResultInfo();
         resp.setContentType("text/html ; charset = utf-8");
         AdminDaoImpl adminDao = new AdminDaoImpl();
         ObjectMapper objectMapper = new ObjectMapper();
         List<User> allUser = adminDao.findAll();
         String allUs = objectMapper.writeValueAsString(allUser);
-        resp.getWriter().write(allUs);
-
+        resp.getWriter().write(allUs);*/
+        System.out.println("search"+0);
+        resp.sendRedirect("/findUserByPageServlet?rows=5&currentPage=1");
     }
 }

@@ -9,6 +9,9 @@ import com.wisstudio.recruit.util.Impl.SqlUtilsimpl;
 import com.wisstudio.recruit.util.JDBCUtils;
 import com.wisstudio.recruit.util.MailUtils;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,5 +111,40 @@ public class Test {
         assert sqlUtils != null;
         List<User> users = sqlUtils.query(sql, User.class);
         System.out.println(users);
+    }
+    @org.junit.Test
+    public void test07(){
+        String sql = "select count(*) from tab_user";
+        Connection con = null;
+        int total=-1;
+        Statement stmt ;
+        JDBCUtils dbUtil = new JDBCUtils();
+        try {
+            con = dbUtil.getCon();
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                total=rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(total);
+    }
+    @org.junit.Test
+    public void test08(){
+        String sql = "select * from tab_user limit ? , ? ";
+        int currentPages = 1;
+        int rows =5;
+        JDBCUtils jdbcUtils = new JDBCUtils();
+        SqlUtilsimpl sqlUtils = null;
+        try {
+            sqlUtils = new SqlUtilsimpl(jdbcUtils.getCon());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assert sqlUtils != null;
+        Integer i = sqlUtils.query(sql,User.class,currentPages,rows).size();
     }
 }

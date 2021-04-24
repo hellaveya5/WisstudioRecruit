@@ -12,9 +12,10 @@
 <h1></h1>
 <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
 <script src="../static/js/bootstrap.min.js"></script>
-
 <script>
     $(function () {
+        //初始分页数据
+        let pb ;
         localStorage.clear();
         localStorage.setItem("admin","active");
     $("#selectAll").on("click",function () {
@@ -22,15 +23,18 @@
             type:"get",
             url:"/AdminSearchServlet",
             success:function (data) {
-               showUser(data);
+                console.log(data);
+               showUser(data.list);
+               createNavigation(data.totalCount,data.totalPage);
+                localStorage.setItem("currentPage",data.currentPage);
             },
+            sync: false,
             error:function () {
                 console.log("服务器问题");
             },
             dataType:"json"
         });
     })
-
     });
     function setUserData(i) {
         console.log("存储用户名"+$("#userItem"+i+"").find("td:eq(2)").html());
@@ -38,6 +42,7 @@
         localStorage.setItem("password",$("#userItem"+i+"").find("td:eq(3)").html());
         location.href = "/html/user.html"
     }
+    //根据id删除
     function deleteFun(studentId) {
         if(confirm("确认删除")){
             $.ajax({
@@ -58,6 +63,7 @@
             })
         }
     }
+    //根据data展示用户
     function showUser(data) {
         if(data!=='false'){
             $("#userList tr:not(:first)").remove();
@@ -84,7 +90,88 @@
             console.log("查询失败");
         }
     }
+    //获取分页数据
+    function showInPage() {
+        let a ;
+        $.ajax({
+            type: "get",
+            data:{
+                rows:"",
+                currentPage:1
+            },
+            url:"/findUserByPageServlet",
+            success:function (data) {
+               a= data;
+                console.log("分页数据获取成功");
+            },
+            sync:false,
+            error:function () {
+                console.log("分页数据获取失败");
+            },
+            dataType:"json"
+        });
+        return a;
+    }
+    //创造分页栏
+    function createNavigation(totalCount,totalPage) {
+        $("li").remove(".italic");
+        $("#totalCount").html("共"+totalCount+"条记录,");
+        $("#totalPage").html("共"+totalPage+"页");
+        for(let i=1;i<=totalPage;i++){
+            let $liTemp = $("#next");
+            $liTemp.before(" <li class='italic'>"+"<a href='#'  onclick='switchPage("+i+")'>" + i + "</a>" + "</li>")
+        }
+    }
+    //选择分页栏
+    function switchPage(i) {
 
+
+            $.ajax({
+                type: "get",
+                url:"/findUserByPageServlet",
+                data:{
+                    currentPage:i,
+                    rows:5
+                },
+                success:function (data){
+                    showUser(data.list);
+                    console.log(data);
+                    console.log("请求成功");
+                    localStorage.setItem("currentPage",data.currentPage);
+                    localStorage.setItem("totalPage",data.totalPage)
+                },
+                error:function(){
+                    console.log("请求失败");
+                    alert("服务器请求失败");
+                },
+                dataType:"json"
+            })
+
+
+    }
+    //页面往前
+    function previous() {
+        let currentPage = localStorage.getItem("currentPage");
+        switchPage(parseInt(currentPage)-1);
+    }
+    //页面往后
+    function next() {
+        let currentPage = localStorage.getItem("currentPage");
+        switchPage(parseInt(currentPage)+1);
+    }
+    //控制页面上下界
+    function limit() {
+        /*let currentPage = localStorage.getItem("currentPage");
+        let totalPage =  localStorage.getItem("totalPage")
+
+        if(currentPage === "0"){
+            localStorage.setItem("currentPage","1")
+
+        }else if(currentPage === totalPage ){
+            localStorage.setItem("currentPage",totalPage)
+
+        }*/
+    }
 </script>
 <div class="container-fluid">
     <div>
@@ -112,7 +199,6 @@
         <a class="btn btn-primary" href="/html/user.html">添加</a>
         <a class="btn btn-primary" href="#">删除选中</a>
     </div>
-
     <table id ="userList" border="1" class="table table-bordered table-hover">
         <tr class="success" disabled="#">
             <th><input type="checkbox"> </th>
@@ -132,22 +218,23 @@
     <div>
         <nav aria-label="Page navigation">
             <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
+                <li id="back" >
+                    <a href="#" aria-label="Previous" onclick="previous()">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
+
+                <li id="next" >
+                    <a href="#" aria-label="Next" onclick="next()">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
-                </li>
-                <span style="font-size:20px">待实现目录条</span>
+                </li >
+                <span style="font-size:20px" >
+                    <div id = "totalCount" style="float: left">
+                    </div>
+                    <div id = "totalPage" style="float: left">
+                    </div>
+                </span>
             </ul>
 
         </nav>

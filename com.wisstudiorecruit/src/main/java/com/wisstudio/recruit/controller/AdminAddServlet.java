@@ -34,7 +34,6 @@ public class AdminAddServlet extends HttpServlet {
         ResultInfo info = new ResultInfo();
         BeanUtilsImpl beanUtils = new BeanUtilsImpl();
         AdminDaoImpl adminDao = new AdminDaoImpl();
-        ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String[]> map = req.getParameterMap();
         System.out.println(map.toString());
         User user = beanUtils.populate(User.class,map);

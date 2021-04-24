@@ -122,18 +122,18 @@ public class SqlUtilsimpl implements SqlUtils {
 
     @Override
     public Integer update(String sql, Object... args) {
-        int impactline = -1;
+        int impactLine = -1;
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             if (null != args) {
                 for (int i = 1; i <= args.length; i++) {
                     ps.setObject(i, args[i - 1]);
                 }
             }
-            impactline = ps.executeUpdate();
+            impactLine = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return impactline;
+        return impactLine;
     }
 
     @Override
@@ -218,4 +218,6 @@ public class SqlUtilsimpl implements SqlUtils {
         }
         return objList;
     }
+
+
 }

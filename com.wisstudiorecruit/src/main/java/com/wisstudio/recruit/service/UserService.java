@@ -1,5 +1,6 @@
 package com.wisstudio.recruit.service;
 
+import com.wisstudio.recruit.po.PageBean;
 import com.wisstudio.recruit.po.User;
 
 import java.util.ArrayList;
@@ -40,4 +41,13 @@ public interface UserService {
      * @return
      */
     User findByUsernameAndPassword(String name, String password);
+
+    /**
+     *
+     * @param StudentId
+     * @return
+     */
+    User findByStudentId(Long StudentId);
+
+    public PageBean<User> findUserByPage(String currentPage, String rows);
 }
