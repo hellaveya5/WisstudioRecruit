@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -34,14 +35,15 @@ public class AdminAddServlet extends HttpServlet {
         BeanUtilsImpl beanUtils = new BeanUtilsImpl();
         AdminDaoImpl adminDao = new AdminDaoImpl();
         ObjectMapper objectMapper = new ObjectMapper();
-        User user = beanUtils.populate(User.class,req.getParameterMap());
+        Map<String, String[]> map = req.getParameterMap();
+        System.out.println(map.toString());
+        User user = beanUtils.populate(User.class,map);
         info.setFlag(adminDao.addUser(user));
         if(info.isFlag()){
             info.setMsg("增加用户成功");
         }else {
             info.setMsg("增加用户失败");
         }
-
         Logger.getGlobal().info(info.getMsg());
         resp.getWriter().write(info.getMsg());
     }

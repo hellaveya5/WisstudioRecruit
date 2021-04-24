@@ -8,6 +8,9 @@ import com.wisstudio.recruit.service.AdminService;
 
 import java.util.List;
 
+/**
+ * @author 98333
+ */
 public class AdminServiceImpl implements AdminService {
     @Override
     public boolean login(String username, String password) {
@@ -17,8 +20,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean delete(Integer id) {
-        return new AdminServiceImpl().delete(id);
+    public boolean delete(Long id) {
+        return new AdminDaoImpl().delete(id);
 
     }
 

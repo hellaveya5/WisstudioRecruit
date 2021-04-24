@@ -33,8 +33,10 @@ public class AdminDaoImpl implements AdminDao {
     }
 
     @Override
-    public boolean delete(Integer id) {
-        return false;
+    public boolean delete(Long studentId) {
+
+        String sql = "delete from tab_user where studentId=?";
+        return sqlUtils.update(sql , studentId)>=0;
     }
 
 

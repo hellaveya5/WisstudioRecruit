@@ -33,4 +33,11 @@ public interface UserService {
      */
     public boolean submit(User user);
 
+    /**
+     *
+     * @param name
+     * @param password
+     * @return
+     */
+    User findByUsernameAndPassword(String name, String password);
 }

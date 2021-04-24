@@ -29,11 +29,11 @@ public class AdminSearchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ResultInfo info = new ResultInfo();
+        resp.setContentType("text/html ; charset = utf-8");
         AdminDaoImpl adminDao = new AdminDaoImpl();
         ObjectMapper objectMapper = new ObjectMapper();
         List<User> allUser = adminDao.findAll();
         String allUs = objectMapper.writeValueAsString(allUser);
-        resp.setContentType("text/html;charset = utf-8");
         resp.getWriter().write(allUs);
 
     }

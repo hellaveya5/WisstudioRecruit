@@ -38,7 +38,7 @@
                 $.ajax({
                         type: "get",
                         data: {
-                            Id:$("#Id").val(),
+                            studentId:parseInt($("#studentId").val()),
                             name: $("#inputUsername").val(),
                             password: $("#inputPassword").val(),
                             gender:$("#gender").val(),
@@ -75,7 +75,7 @@
                 $.ajax({
                     type: "get",
                     data: {
-                        Id:$("#Id").val(),
+                        studentId:parseInt($("#studentId").val()),
                         name: $("#inputUsername").val(),
                         password: $("#inputPassword").val(),
                         gender:$("#gender").val(),
@@ -90,7 +90,7 @@
                     success: function (data) {
                             console.log(data);
                             alert(data);
-                            //清除数据
+
                     },
                     error:function () {
                         alert("服务器不在线哦~")

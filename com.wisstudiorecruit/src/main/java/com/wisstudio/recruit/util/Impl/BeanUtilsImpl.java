@@ -34,11 +34,12 @@ public class BeanUtilsImpl implements BeanUtils {
         try {
             while (iter.hasNext()) {
                 String key = iter.next();
-               /* System.out.println(key);*/
+                System.out.println(key);
                 mapKeys.add(key);
                 String a = map.get(key)[0];
                     for(int j=0;j<propertyKeys.size();j++){
                         if(propertyKeys.get(j).equalsIgnoreCase(key)){
+                            System.out.println(propertyClass.get(j).toString());
                             if ("class java.lang.Integer".equalsIgnoreCase(propertyClass.get(j).toString())) {
                                 Integer b = Integer.parseInt(a);
                          /*       System.out.println("Int");*/
@@ -48,8 +49,9 @@ public class BeanUtilsImpl implements BeanUtils {
                                 propertyValues.add(a);
                                /* System.out.println("stirng");*/
                                 break;
-                            } else if ("class java.lang.bigint".equalsIgnoreCase(propertyClass.get(j).toString())) {
-                                propertyValues.add(a);
+                            } else if ("class java.lang.long".equalsIgnoreCase(propertyClass.get(j).toString())) {
+                                Long b = Long.parseLong(a);
+                                propertyValues.add(b);
                             }else {
                                 throw new TypeNotEnoughException();
                             }
@@ -72,8 +74,6 @@ public class BeanUtilsImpl implements BeanUtils {
             for(int j=0;j<propertyKeys.size();j++){
                 if (propertyKeys.get(j).equals(mapKeys.get(i))) {
                     try {
-                        /*System.out.println(propertyKeys.get(j));
-                        System.out.println(mapKeys.get(i));*/
                         assert object != null;
                         method = object.getClass().getDeclaredMethod(sb.toString(), propertyClass.get(j));
                     } catch (NoSuchMethodException e) {

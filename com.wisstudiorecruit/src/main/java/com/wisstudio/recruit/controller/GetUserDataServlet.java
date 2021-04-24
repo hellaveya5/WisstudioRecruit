@@ -5,6 +5,7 @@ import com.wisstudio.recruit.dao.Impl.UserDaoImpl;
 import com.wisstudio.recruit.dao.UserDao;
 import com.wisstudio.recruit.po.User;
 import com.wisstudio.recruit.result.ResultInfo;
+import com.wisstudio.recruit.service.Impl.UserServiceImpl;
 import com.wisstudio.recruit.util.BeanUtils;
 import com.wisstudio.recruit.util.Impl.BeanUtilsImpl;
 
@@ -32,10 +33,9 @@ public class GetUserDataServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ResultInfo info = new ResultInfo();
-        UserDao userDao= new UserDaoImpl();
         BeanUtils beanUtils = new BeanUtilsImpl();
         User user = beanUtils.populate(User.class, req.getParameterMap());
-        User userdata = userDao.findByUsernameAndPassword(user.getName(), user.getPassword());
+        User userdata = new UserServiceImpl().findByUsernameAndPassword(user.getName(), user.getPassword());
         if(userdata!=null){
             ObjectMapper objectMapper = new ObjectMapper();
             String us = objectMapper.writeValueAsString(userdata);

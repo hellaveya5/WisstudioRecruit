@@ -15,37 +15,13 @@
 
 <script>
     $(function () {
-        localStorage.clear()
+        localStorage.clear();
     $("#selectAll").on("click",function () {
         $.ajax({
             type:"get",
             url:"/AdminSearchServlet",
             success:function (data) {
-                if(data!=='false'){
-                    $("#userList tr:not(:first)").empty();
-                    for( let i = 0; i < data.length; i++ ) {
-                        //动态创建一个tr行标签,并且转换成jQuery对象
-                        let $trTemp = $("<tr id="+i+">"+" </tr>");
-                        //往行里面追加 td单元格
-                        $trTemp.append("<td>"+"<input type='checkbox'>" +"</td>")
-                        $trTemp.append("<td>"+ data[i].studentId +"</td>");
-                        $trTemp.append("<td>"+ data[i].name +"</td>");
-                        $trTemp.append("<td>"+ data[i].password +"</td>");
-                        $trTemp.append("<td>"+ data[i].gender +"</td>");
-                        $trTemp.append("<td>"+ data[i].choiceOfDirection +"</td>");
-                        $trTemp.append("<td>"+ data[i].major +"</td>");
-                        $trTemp.append("<td>"+ data[i].grade +"</td>");
-                        $trTemp.append("<td>"+ data[i].contactNumber +"</td>");
-                        $trTemp.append("<td>"+ data[i].selfIntroduce +"</td>");
-                        $trTemp.append("<td>"+ data[i].skillMastered+"</td>");
-                        $trTemp.append("<td colspan='8' align='center'>"+ "<a id = "+i+" class='btn btn-primary' href='/html/user.html' >"+ "修改"+"&nbsp" +"</a>"+"<a class='btn btn-primary' >" + "删除" +"</a>"+ "</td>")
-                        // $("#J_TbData").append($trTemp);
-                        $trTemp.appendTo("#userList");
-                    }
-                    console.log("查询成功");
-                }else{
-                    console.log("查询失败");
-                }
+               showUser(data);
             },
             error:function () {
                 console.log("服务器问题");
@@ -54,8 +30,55 @@
         });
     })
 
-    })
+    });
+    function deleteFun(studentId) {
+        if(confirm("确认删除")){
 
+            $.ajax({
+                type: "get",
+                url:"/AdminDeleteServlet",
+                data:{
+                    studentId:studentId
+                },
+                success:function (data) {
+                    showUser(data);
+                    console.log(data);
+
+                },
+                error:function () {
+                    console.log("服务器问题");
+                },
+                dataType: "json"
+            })
+        }
+    }
+    function showUser(data) {
+        if(data!=='false'){
+            $("#userList tr:not(:first)").remove();
+            for( let i = 0; i < data.length; i++ ) {
+                //动态创建一个tr行标签,并且转换成jQuery对象
+                let $trTemp = $("<tr id="+i+">"+" </tr>");
+                //往行里面追加 td单元格
+                $trTemp.append("<td>"+"<input type='checkbox'>" +"</td>")
+                $trTemp.append("<td>"+ data[i].studentId +"</td>");
+                $trTemp.append("<td>"+ data[i].name +"</td>");
+                $trTemp.append("<td>"+ data[i].password +"</td>");
+                $trTemp.append("<td>"+ data[i].gender +"</td>");
+                $trTemp.append("<td>"+ data[i].choiceOfDirection +"</td>");
+                $trTemp.append("<td>"+ data[i].major +"</td>");
+                $trTemp.append("<td>"+ data[i].grade +"</td>");
+                $trTemp.append("<td>"+ data[i].contactNumber +"</td>");
+                $trTemp.append("<td>"+ data[i].selfIntroduce +"</td>");
+                $trTemp.append("<td>"+ data[i].skillMastered+"</td>");
+                $trTemp.append("<td colspan='8' align='center'>"+"<a id = "+i+" class='btn btn-primary' href='/html/user.html' >"+ "修改"+"&nbsp" +"</a>"+"<a class='btn btn-primary' href='javascript:void(0)' onclick='deleteFun("+data[i].studentId+")' >" + "删除" +"</a>"+ "</td>");
+                // $("#J_TbData").append($trTemp);
+                $trTemp.appendTo("#userList");
+            }
+            console.log("查询成功");
+        }else{
+            console.log("查询失败");
+        }
+    }
 </script>
 <div class="container-fluid">
     <div>
@@ -64,8 +87,8 @@
 <div style="float: left">
     <form class="form-inline">
         <div class="form-group">
-            <label for="searchId">学号</label>
-            <input type="text" class="form-control" id="searchId" placeholder="studentId">
+            <label for="studentId">学号</label>
+            <input type="text" class="form-control" id="studentId" placeholder="studentId">
         </div>
         <div class="form-group">
             <label for="searchName">姓名</label>

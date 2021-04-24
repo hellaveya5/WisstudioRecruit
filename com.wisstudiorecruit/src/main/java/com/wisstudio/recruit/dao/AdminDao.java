@@ -16,10 +16,10 @@ public interface AdminDao  {
     Administrator login(String name , String password);
     /**
      * 删除用户
-     * @param id 根据id
+     * @param studentId 根据学号
      * @return 修改的结果
      */
-    boolean delete(Integer id);
+    boolean delete(Long studentId);
     /**
      *查询所有用户返回用户集合
      * @param user 条件

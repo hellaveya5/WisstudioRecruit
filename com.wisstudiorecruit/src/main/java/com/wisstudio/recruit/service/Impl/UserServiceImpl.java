@@ -39,16 +39,12 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User login(User user) {
-        UserDao userDaoImpl = new UserDaoImpl();
-        user= userDaoImpl.login(user.getName(),user.getPassword());
-        return user;
+        return new UserDaoImpl().login(user.getName(),user.getPassword());
     }
 
     @Override
     public boolean modify(User user) {
-        UserDao userDaoImpl = new UserDaoImpl();
-        userDaoImpl.modify(user);
-        return false;
+        return new UserDaoImpl().add(user);
     }
 
     /**
@@ -58,9 +54,11 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean submit(User user) {
-        UserDaoImpl userDaoImpl;
-        userDaoImpl = new UserDaoImpl();
-        return userDaoImpl.add(user);
+        return new UserDaoImpl().add(user);
     }
 
+    @Override
+    public User findByUsernameAndPassword(String name, String password) {
+        return new UserDaoImpl().findByUsernameAndPassword(name,password);
+    }
 }

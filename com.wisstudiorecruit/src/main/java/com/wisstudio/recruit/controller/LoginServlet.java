@@ -24,11 +24,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, String[]> map = req.getParameterMap();
-        User user = new User();
         BeanUtils beanUtils = new BeanUtilsImpl();
-        user=beanUtils.populate(User.class,map);
-        UserService service = new UserServiceImpl();
-        User u = service.login(user);
+        User user=beanUtils.populate(User.class,map);
+        User u = new UserServiceImpl().login(user);
         ResultInfo info = new ResultInfo();
         if (u == null) {
             info.setFlag(false);

@@ -25,13 +25,12 @@ public class RegistServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, String[]> map = req.getParameterMap();
-        UserServiceImpl service = new UserServiceImpl();
         BeanUtils beanUtils = new BeanUtilsImpl();
         ResultInfo info = new ResultInfo();
         User user = beanUtils.populate(User.class, map);
         resp.setContentType("text/html;charset=utf-8");
         //flag成功与否
-        boolean flag = service.regist(user);
+        boolean flag = new UserServiceImpl().regist(user);
         System.out.println("servlet"+flag);
         if(flag){
             resp.getWriter().write("注册成功");

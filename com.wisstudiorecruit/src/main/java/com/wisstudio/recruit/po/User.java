@@ -13,7 +13,7 @@ public class User {
     String gender;
     String major;
     Integer grade;
-    Integer contactNumber;
+    Long contactNumber;
     String skillMastered;
     String selfIntroduce;
     String choiceOfDirection;
@@ -74,11 +74,11 @@ public class User {
         this.major = major;
     }
 
-    public Integer getContactNumber() {
+    public Long getContactNumber() {
         return contactNumber;
     }
 
-    public void setContactNumber(Integer contactNumber) {
+    public void setContactNumber(Long contactNumber) {
         this.contactNumber = contactNumber;
     }
 

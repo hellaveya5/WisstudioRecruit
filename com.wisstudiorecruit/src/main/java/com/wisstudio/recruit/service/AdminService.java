@@ -16,10 +16,10 @@ public interface AdminService {
 
     /**
      * 删除用户
-     * @param id 删除用户
+     * @param studentId 删除用户
      * @return  结果
      */
-    public boolean delete(Integer id);
+    public boolean delete(Long studentId);
 
     /**
      * 修改用户信息
