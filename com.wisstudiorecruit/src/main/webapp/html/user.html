@@ -17,6 +17,7 @@
     $(function () {
         //将上一页面的用户名和密码传到这一个页面
         let name = window.localStorage.getItem("name");
+        let Authority = window.localStorage.getItem("admin");
         console.log(name);
         if(name){
             let password = window.localStorage.getItem("password");
@@ -27,14 +28,15 @@
 
         }else {
             console.log("管理员进入增加用户");
-            $("#window-title").html("管理员增加用户界面")
+            $("#window-title").html("管理员增加用户界面");
         }
 
         //异步提交表单
         $("#btn_sub").on("click",function () {
             let title = $("#window-title").html();
-            console.log(title)
-            if(title==='用户填写信息页面'){
+            console.log(title);
+            if(title==='用户填写界面'){
+                console.log("进入用户填写信息页面的submit")
                 $.ajax({
                         type: "get",
                         data: {
@@ -59,7 +61,12 @@
                                 alert("修改成功");
                                 //清除数据
                                 localStorage.clear();
+                            if(Authority==='active'){
+                                location.href = "/html/admin.html";
+                            }else {
                                 location.href = "/html/index.html";
+                            }
+
                             }else {
                                 alert("修改失败");
                                 console.log("收到"+data);
@@ -71,7 +78,8 @@
                         dataType:"text"
                     }
                 )
-            }else if(title==='管理员增加用户界面'){
+            }
+            else if(title==='管理员增加用户界面'){
                 $.ajax({
                     type: "get",
                     data: {
@@ -89,7 +97,11 @@
                     url: "/AdminAddServlet",
                     success: function (data) {
                             console.log(data);
-                            alert(data);
+                            if(confirm(" 是否继续添加？")){
+
+                            }else {
+                                location.href = "/html/admin.html"
+                            }
 
                     },
                     error:function () {
@@ -119,6 +131,7 @@
                     $("#contactNumber").val(data.contactNumber);
                     $("#selfIntroduce").val(data.selfIntroduce);
                     $("#skillMastered").val(data.skillMastered);
+                    console.log(data);
                 }
                else{
                    alert("查询信息失败")

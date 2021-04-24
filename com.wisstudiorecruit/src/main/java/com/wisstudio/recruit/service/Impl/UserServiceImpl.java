@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean modify(User user) {
-        return new UserDaoImpl().add(user);
+        return new UserDaoImpl().modify(user);
     }
 
     /**

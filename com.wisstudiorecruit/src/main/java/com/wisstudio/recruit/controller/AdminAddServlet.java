@@ -30,7 +30,7 @@ public class AdminAddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=utf-8");
+        resp.setContentType("text/html ; charset = utf-8");
         ResultInfo info = new ResultInfo();
         BeanUtilsImpl beanUtils = new BeanUtilsImpl();
         AdminDaoImpl adminDao = new AdminDaoImpl();
@@ -46,5 +46,6 @@ public class AdminAddServlet extends HttpServlet {
         }
         Logger.getGlobal().info(info.getMsg());
         resp.getWriter().write(info.getMsg());
+        resp.sendRedirect("/AdminSearchServlet");
     }
 }

@@ -35,11 +35,12 @@ public class GetUserDataServlet extends HttpServlet {
         ResultInfo info = new ResultInfo();
         BeanUtils beanUtils = new BeanUtilsImpl();
         User user = beanUtils.populate(User.class, req.getParameterMap());
+        System.out.println("/getUserDataServlet"+user);
         User userdata = new UserServiceImpl().findByUsernameAndPassword(user.getName(), user.getPassword());
         if(userdata!=null){
             ObjectMapper objectMapper = new ObjectMapper();
             String us = objectMapper.writeValueAsString(userdata);
-            resp.setContentType("text/html;charset=utf-8");
+            resp.setContentType("text/html;charset = utf-8");
             System.out.println(us);
             resp.getWriter().write(us);
             Logger.getGlobal().info("返回用户数据成功");

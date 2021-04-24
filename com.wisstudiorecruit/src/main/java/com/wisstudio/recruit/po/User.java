@@ -7,7 +7,6 @@ public class User {
 /*
     学号 + 姓名 + 性别 + 年级+ 所在专业 + 联系电话 + 选择方向（前端/后台） + 目前已掌握的技能介绍 + 自我介绍
 */
-    Integer id;
     String password;
     String name;
     String gender;
@@ -25,14 +24,6 @@ public class User {
 
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getPassword() {
@@ -109,7 +100,6 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +

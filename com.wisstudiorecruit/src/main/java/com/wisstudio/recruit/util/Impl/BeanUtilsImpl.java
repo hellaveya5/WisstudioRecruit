@@ -34,12 +34,12 @@ public class BeanUtilsImpl implements BeanUtils {
         try {
             while (iter.hasNext()) {
                 String key = iter.next();
-                System.out.println(key);
+                /*System.out.println(key);*/
                 mapKeys.add(key);
                 String a = map.get(key)[0];
+                System.out.println(a);
                     for(int j=0;j<propertyKeys.size();j++){
                         if(propertyKeys.get(j).equalsIgnoreCase(key)){
-                            System.out.println(propertyClass.get(j).toString());
                             if ("class java.lang.Integer".equalsIgnoreCase(propertyClass.get(j).toString())) {
                                 Integer b = Integer.parseInt(a);
                          /*       System.out.println("Int");*/
@@ -61,6 +61,7 @@ public class BeanUtilsImpl implements BeanUtils {
         }catch (Exception e){
             e.printStackTrace();
         }
+        //给成员变量赋值
         T object = null;
         try {
             object = clazz.getDeclaredConstructor().newInstance();
@@ -89,7 +90,7 @@ public class BeanUtilsImpl implements BeanUtils {
             }
 
         }
-
+        System.out.println(object.toString());
         return object;
     }
 
