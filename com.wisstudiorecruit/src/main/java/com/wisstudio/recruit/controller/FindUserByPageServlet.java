@@ -44,16 +44,13 @@ public class FindUserByPageServlet extends HttpServlet {
             UserServiceImpl service = new UserServiceImpl();
             PageBean<User> pb = service.findUserByPage(currentPage , rows , condition);
             //请求的页数大于应有的页数，拒绝
-
-            if(! (pb.getTotalPage() < Integer.parseInt(currentPage))){
-                ObjectMapper objectMapper = new ObjectMapper();
-                String pbData = objectMapper.writeValueAsString(pb);
-                System.out.println(pbData);
-                resp.getWriter().write(pbData);
-            }else{
+            ObjectMapper objectMapper = new ObjectMapper();
+            String pbData = objectMapper.writeValueAsString(pb);
+            System.out.println(pbData);
+            resp.getWriter().write(pbData);
+            if((pb.getTotalPage() < Integer.parseInt(currentPage))){
                 Logger.getGlobal().info("没有该数据");
             }
-
         }else {
             Logger.getGlobal().info("请求的页数大于等于0：错误的寻页索引");
         }

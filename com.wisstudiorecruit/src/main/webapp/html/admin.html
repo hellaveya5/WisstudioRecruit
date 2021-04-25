@@ -67,7 +67,6 @@
     }
     //根据data展示用户
     function showUser(data) {
-        alert(data);
         if(data!=='false'){
             $("#userList tr:not(:first)").remove();
             for( let i = 0; i < data.length; i++ ) {
