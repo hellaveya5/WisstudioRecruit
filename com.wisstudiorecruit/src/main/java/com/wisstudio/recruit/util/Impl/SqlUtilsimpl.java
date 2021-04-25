@@ -30,95 +30,25 @@ public class SqlUtilsimpl implements SqlUtils {
 
     @Override
     public <T> List<T> query(String sql, Class<T> clazz, Object... args) {
-        ResultSet rs = null;
-        PreparedStatement ps;
-        //给？赋予参数
+       PreparedStatement ps=null ;
+       ResultSet rs =null;
+        ArrayList<T> objList = new ArrayList<>();
+        //赋值执行sql语句
         try {
+            int i =1;
             ps = conn.prepareStatement(sql);
-            if (null != args) {
-                for (int i = 1; i <= args.length; i++) {
-                    ps.setObject(i, args[i - 1]);
-                }
-                rs = ps.executeQuery();
+            for (Object obj:
+                 args) {
+                ps.setObject(i++,obj);
             }
-        } catch (SQLException e) {
+            getObjectList(clazz, ps, objList);
+
+        } catch (SQLException | InvocationTargetException | InstantiationException | NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();
-        }
-        //列名
-        List<String> propertyKeys = new ArrayList<>();
-        //值名
-        List<Object> propertyValues = new ArrayList<>();
-        //数据类型字节码对象
-        List<Class<?>> propertyClass = new ArrayList<>();
-        //返回的List集合
-        List<T> objList = new ArrayList<>();
-        //获取类中所有属性,返回Field 对象的一个数组
-        Field[] fields = clazz.getDeclaredFields();
-        //获取列名和列类型的对象
-        for (Field field : fields) {
-            propertyClass.add(field.getType());
-            propertyKeys.add(field.getName());
-        }
-        //获取列值
-        int columnCount;
-        try {
-            assert rs != null;
-            columnCount= rs.getMetaData().getColumnCount();
-            while (rs.next()) {
-                for (int i = 1; i <=columnCount; i++) {
-
-                    if ("INT".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
-
-                        propertyValues.add(rs.getInt(i));
-                    } else if ("VARCHAR".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
-
-                        propertyValues.add(rs.getString(i));
-                    }//else if
-                    else if ("bigint".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
-                    propertyValues.add(rs.getLong(i));
-                }
-                    else {
-                        throw new TypeNotEnoughException();
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        //操作 T 对象调用它的方法给他成员变量赋值
-        for (int j = 0; j < propertyValues.size(); ) {
-            T object = null;
-            try {
-                object = clazz.getDeclaredConstructor().newInstance();
-            } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            for (int i = 0; i < propertyKeys.size(); i++, j++) {
-                //Stringbuilder获取方法的字段
-                StringBuilder sb = new StringBuilder("set");
-                sb.append(propertyKeys.get(i).substring(0, 1).toUpperCase()).append((propertyKeys.get(i).substring(1)));
-
-                //执行方法对象
-                Method method = null;
-                try {
-                    assert object != null;
-                    //获取
-                    method = object.getClass().getDeclaredMethod(sb.toString(), propertyClass.get(i));
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    assert method != null;
-                    //执行
-                    method.invoke(object, propertyValues.get(j));
-                } catch (IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            }
-            objList.add(object);
         }
         return objList;
     }
+
 
     @Override
     public Integer update(String sql, Object... args) {
@@ -137,87 +67,58 @@ public class SqlUtilsimpl implements SqlUtils {
     }
 
     @Override
-    public <T> List<T> query(String sql, Class<T> clazz) {
-        ResultSet rs = null;
-        PreparedStatement ps;
-        //直接执行sql
+    public <T> List<T> queryAll(String sql, Class<T> clazz) {
+        PreparedStatement ps = null ;
+        ResultSet rs =null;
+        ArrayList<T> objList = new ArrayList<>();
+        //赋值执行sql语句
         try {
+            int i =1;
             ps = conn.prepareStatement(sql);
-                rs = ps.executeQuery();
-        } catch (SQLException e) {
+            //结果集详细信息，列名，列类型，列值
+            getObjectList(clazz,ps,objList);
+
+        } catch (SQLException | InvocationTargetException | InstantiationException | NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();
-        }
-        //列名
-        List<String> propertyKeys = new ArrayList<>();
-        //值名
-        List<Object> propertyValues = new ArrayList<>();
-        //数据类型字节码对象
-        List<Class<?>> propertyClass = new ArrayList<>();
-        //返回的List集合
-        List<T> objList = new ArrayList<>();
-        //获取类中所有属性,返回Field 对象的一个数组
-        Field[] fields = clazz.getDeclaredFields();
-        //获取列名和列类型的对象
-        for (Field field : fields) {
-            propertyClass.add(field.getType());
-            propertyKeys.add(field.getName());
-        }
-        //获取列值
-        int columnCount;
-        try {
-            assert rs != null;
-            columnCount= rs.getMetaData().getColumnCount();
-            while (rs.next()) {
-                for (int i = 1; i <=columnCount; i++) {
-                    if ("INT".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
-                        propertyValues.add(rs.getInt(i));
-                    } else if ("VARCHAR".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
-                        propertyValues.add(rs.getString(i));
-                    }//else if
-                    else if ("bigint".equalsIgnoreCase(rs.getMetaData().getColumnTypeName(i))) {
-                        propertyValues.add(rs.getLong(i));
-                    }
-                    else {
-                        throw new TypeNotEnoughException();
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        //操作 T 对象调用它的方法给他成员变量赋值
-        for (int j = 0; j < propertyValues.size(); ) {
-            T object = null;
-            try {
-                object = clazz.getDeclaredConstructor().newInstance();
-            } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            for (int i = 0; i < propertyKeys.size(); i++, j++) {
-                //Stringbuilder获取方法的字段
-                StringBuilder sb = new StringBuilder("set");
-                sb.append(propertyKeys.get(i).substring(0, 1).toUpperCase()).append((propertyKeys.get(i).substring(1)));
-                //执行方法对象
-                Method method = null;
-                try {
-                    assert object != null;
-                    //获取
-                    method = object.getClass().getDeclaredMethod(sb.toString(), propertyClass.get(i));
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    assert method != null;
-                    //执行
-                    method.invoke(object, propertyValues.get(j));
-                } catch (IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            }
-            objList.add(object);
         }
         return objList;
     }
 
+    /**
+     *
+     * @param clazz 类型名称
+     * @param ps 执行sql语句对象
+     * @param objList   封装对象后的结果集
+     * @param <T>   类型
+     */
+    private <T> void getObjectList(Class<T> clazz, PreparedStatement ps, ArrayList<T> objList) throws SQLException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        ResultSet rs;
+        rs = ps.executeQuery();
+        //结果集详细信息，列名，列类型，列值
+        ResultSetMetaData metaData = rs.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        while(rs.next()){
+            //实例化实体类
+            T object = clazz.getDeclaredConstructor().newInstance();
+            for(int j =1 ; j <= columnCount; j++){
+                String columnName = metaData.getColumnLabel(j);
+                Object columnValue = rs.getObject(j);
+                Class<?> aClass = object.getClass();
+                try {
+                    //获得指定名的属性
+                    Field field = aClass.getDeclaredField(columnName);
+                    field.setAccessible(true);
+                    field.set(object,columnValue);
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            objList.add(object);
+        }
+    }
+
 
 }
+
+

@@ -31,6 +31,6 @@ public interface SqlUtils {
      * @param <T> datatype
      * @return List <T>
      */
-     <T> List <T> query (String sql,Class<T> clazz);
+     <T> List <T> queryAll (String sql,Class<T> clazz);
 
 }

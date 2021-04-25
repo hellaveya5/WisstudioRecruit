@@ -35,12 +35,12 @@ public class Test {
 
     @org.junit.Test
     public void test01() {
-        int id = 1;
-        String sql = "select * from tab_user where id = ?";
+        int studentId = 43;
+        String sql = "select * from tab_user where studentId = ?";
         SqlUtilsimpl sqlUtilsimpl = null;
         try {
             sqlUtilsimpl = new SqlUtilsimpl(jdbcUtils.getCon());
-            List<User> query = sqlUtilsimpl.query(sql, User.class, id);
+            List<User> query = sqlUtilsimpl.query(sql, User.class, studentId);
             System.out.println(query);
         } catch (Exception ex) {
             ex.printStackTrace();
