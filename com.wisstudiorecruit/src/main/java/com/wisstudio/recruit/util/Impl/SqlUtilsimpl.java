@@ -1,6 +1,7 @@
 package com.wisstudio.recruit.util.Impl;
 
 import com.wisstudio.Exception.TypeNotEnoughException;
+import com.wisstudio.recruit.util.ReflectUtils;
 import com.wisstudio.recruit.util.SqlUtils;
 
 import java.lang.reflect.Field;
@@ -41,7 +42,7 @@ public class SqlUtilsimpl implements SqlUtils {
                  args) {
                 ps.setObject(i++,obj);
             }
-            getObjectList(clazz, ps, objList);
+            objList = ReflectUtils.getObjectList(clazz, ps);
 
         } catch (SQLException | InvocationTargetException | InstantiationException | NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();
@@ -76,7 +77,7 @@ public class SqlUtilsimpl implements SqlUtils {
             int i =1;
             ps = conn.prepareStatement(sql);
             //结果集详细信息，列名，列类型，列值
-            getObjectList(clazz,ps,objList);
+            objList= ReflectUtils.getObjectList(clazz,ps);
 
         } catch (SQLException | InvocationTargetException | InstantiationException | NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();
@@ -84,39 +85,7 @@ public class SqlUtilsimpl implements SqlUtils {
         return objList;
     }
 
-    /**
-     *
-     * @param clazz 类型名称
-     * @param ps 执行sql语句对象
-     * @param objList   封装对象后的结果集
-     * @param <T>   类型
-     */
-    private <T> void getObjectList(Class<T> clazz, PreparedStatement ps, ArrayList<T> objList) throws SQLException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        ResultSet rs;
-        rs = ps.executeQuery();
-        //结果集详细信息，列名，列类型，列值
-        ResultSetMetaData metaData = rs.getMetaData();
-        int columnCount = metaData.getColumnCount();
-        while(rs.next()){
-            //实例化实体类
-            T object = clazz.getDeclaredConstructor().newInstance();
-            for(int j =1 ; j <= columnCount; j++){
-                String columnName = metaData.getColumnLabel(j);
-                Object columnValue = rs.getObject(j);
-                Class<?> aClass = object.getClass();
-                try {
-                    //获得指定名的属性
-                    Field field = aClass.getDeclaredField(columnName);
-                    field.setAccessible(true);
-                    field.set(object,columnValue);
-                } catch (NoSuchFieldException e) {
-                    e.printStackTrace();
-                }
 
-            }
-            objList.add(object);
-        }
-    }
 
 
 }

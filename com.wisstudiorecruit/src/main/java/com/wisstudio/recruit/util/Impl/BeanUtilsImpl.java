@@ -90,7 +90,6 @@ public class BeanUtilsImpl implements BeanUtils {
             }
 
         }
-        System.out.println(object.toString());
         return object;
     }
 
