@@ -35,7 +35,7 @@ public class GetUserDataServlet extends HttpServlet {
         ResultInfo info = new ResultInfo();
         BeanUtils beanUtils = new BeanUtilsImpl();
         User user = beanUtils.populate(User.class, req.getParameterMap());
-        System.out.println("/getUserDataServlet"+user);
+        System.out.println("/getUserDataServlet" + user);
         User userdata = new UserServiceImpl().findByUsernameAndPassword(user.getName(), user.getPassword());
         if(userdata!=null){
             ObjectMapper objectMapper = new ObjectMapper();

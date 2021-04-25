@@ -3,7 +3,7 @@ package com.wisstudio.recruit.service;
 import com.wisstudio.recruit.po.PageBean;
 import com.wisstudio.recruit.po.User;
 
-import java.util.ArrayList;
+import java.util.Map;
 
 public interface UserService {
     /**
@@ -49,5 +49,12 @@ public interface UserService {
      */
     User findByStudentId(Long StudentId);
 
-    public PageBean<User> findUserByPage(String currentPage, String rows);
+    /**
+     *
+     * @param currentPage 当前页数
+     * @param rows  行数
+     * @param condition 条件
+     * @return 分页查询结果
+     */
+    public PageBean<User> findUserByPage(String currentPage, String rows, Map<String, String[]> condition);
 }

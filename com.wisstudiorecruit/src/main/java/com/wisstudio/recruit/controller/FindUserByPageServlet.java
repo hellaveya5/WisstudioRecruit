@@ -29,21 +29,36 @@ public class FindUserByPageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        Map<String, String[]> condition = req.getParameterMap();
         String currentPage = req.getParameter("currentPage");
+        String rows = req.getParameter("rows");
+        if(currentPage ==null || "".equals(currentPage) ){
+            currentPage = "1";
+        }
+        if(rows == null || "".equals(rows)){
+            rows = "5" ;
+        }
         if(!"0".equals(currentPage)){
-            String rows = req.getParameter("rows");
             resp.setContentType("text/html;charset = utf-8");
             UserServiceImpl service = new UserServiceImpl();
-            PageBean<User> pb = service.findUserByPage(currentPage,rows);
-            if(pb.getTotalPage()<Integer.parseInt(currentPage)){
-                Logger.getGlobal().info("错误的寻页索引");
+            PageBean<User> pb = service.findUserByPage(currentPage , rows , condition);
+            //请求的页数大于应有的页数，拒绝
+
+            if(! (pb.getTotalPage() < Integer.parseInt(currentPage))){
+                ObjectMapper objectMapper = new ObjectMapper();
+                String pbData = objectMapper.writeValueAsString(pb);
+                System.out.println(pbData);
+                resp.getWriter().write(pbData);
+            }else{
+                Logger.getGlobal().info("没有该数据");
             }
-            ObjectMapper objectMapper = new ObjectMapper();
-            String pbData = objectMapper.writeValueAsString(pb);
-            resp.getWriter().write(pbData);
+
         }else {
-            Logger.getGlobal().info("错误的寻页索引");
+            Logger.getGlobal().info("请求的页数大于等于0：错误的寻页索引");
+        }
         }
 
+
     }
-}
+

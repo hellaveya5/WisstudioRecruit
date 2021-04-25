@@ -26,9 +26,10 @@
                 console.log(data);
                showUser(data.list);
                createNavigation(data.totalCount,data.totalPage);
+                localStorage.setItem("rows",data.rows)
                 localStorage.setItem("currentPage",data.currentPage);
             },
-            sync: false,
+
             error:function () {
                 console.log("服务器问题");
             },
@@ -54,6 +55,7 @@
                 success:function (data) {
                     showUser(data);
                     console.log(data);
+                    createNavigation(data.totalCount,data.totalPage);
 
                 },
                 error:function () {
@@ -65,6 +67,7 @@
     }
     //根据data展示用户
     function showUser(data) {
+        alert(data);
         if(data!=='false'){
             $("#userList tr:not(:first)").remove();
             for( let i = 0; i < data.length; i++ ) {
@@ -96,13 +99,17 @@
         $.ajax({
             type: "get",
             data:{
-                rows:"",
-                currentPage:1
+                rows:localStorage.getItem("rows"),
+                currentPage:localStorage.getItem("currentPage")
             },
             url:"/findUserByPageServlet",
             success:function (data) {
-               a= data;
+                a= data;
+                showUser(data.list)
                 console.log("分页数据获取成功");
+                createNavigation(data.totalCount,data.totalPage);
+                localStorage.setItem("rows",data.rows)
+                localStorage.setItem("currentPage",data.currentPage);
             },
             sync:false,
             error:function () {
@@ -124,19 +131,19 @@
     }
     //选择分页栏
     function switchPage(i) {
-
-
             $.ajax({
                 type: "get",
                 url:"/findUserByPageServlet",
                 data:{
                     currentPage:i,
-                    rows:5
+                    rows:localStorage.getItem("rows")
                 },
                 success:function (data){
                     showUser(data.list);
+                    createNavigation(data.totalCount,data.totalPage);
                     console.log(data);
                     console.log("请求成功");
+                    localStorage.setItem("rows",data.rows);
                     localStorage.setItem("currentPage",data.currentPage);
                     localStorage.setItem("totalPage",data.totalPage)
                 },
@@ -159,18 +166,29 @@
         let currentPage = localStorage.getItem("currentPage");
         switchPage(parseInt(currentPage)+1);
     }
-    //控制页面上下界
-    function limit() {
-        /*let currentPage = localStorage.getItem("currentPage");
-        let totalPage =  localStorage.getItem("totalPage")
+    function select() {
+            let rows = localStorage.getItem("rows");
+            let currentPage = localStorage.getItem("currentPage");
+            $.ajax({
+                type:"post",
+                url:"/findUserByPageServlet",
+                data:{
+                    studentId: $("#studentId").val(),
+                    name:$("#name").val(),
+                    grade:$("#grade").val()
+                },
+                success:function (data) {
+                    showUser(data.list);
+                    console.log(data);
+                    console.log("查询成功");
+                    createNavigation(data.totalCount,data.totalPage);
+                    localStorage.setItem("rows",data.rows)
+                    localStorage.setItem("currentPage",data.currentPage);
+                }
+                ,
+                dataType:"json"
+            })
 
-        if(currentPage === "0"){
-            localStorage.setItem("currentPage","1")
-
-        }else if(currentPage === totalPage ){
-            localStorage.setItem("currentPage",totalPage)
-
-        }*/
     }
 </script>
 <div class="container-fluid">
@@ -178,21 +196,21 @@
         <h3 class="col-sm-offset-5">用户信息列表<button id="selectAll" ><small>获取所有用户信息</small> </button></h3>
     </div>
 <div style="float: left">
-    <form class="form-inline">
+    <div class="form-inline"  method="post" accept-charset="utf-8">
         <div class="form-group">
             <label for="studentId">学号</label>
-            <input type="text" class="form-control" id="studentId" placeholder="studentId">
+            <input type="text" name="studentId" class="form-control" id="studentId" placeholder="studentId">
         </div>
         <div class="form-group">
-            <label for="searchName">姓名</label>
-            <input type="text" class="form-control" id="searchName" placeholder="name">
+            <label for="name">姓名</label>
+            <input type="text" name="name" class="form-control" id="name" placeholder="name">
         </div>
         <div class="form-group">
-            <label for="searchClass">班级</label>
-            <input type="text" class="form-control" id="searchClass" placeholder="name">
+            <label for="grade">年级</label>
+            <input type="text"  name="grade" class="form-control" id="grade" placeholder="class">
         </div>
-        <button type="submit" class="btn btn-default"> 查找</button>
-    </form>
+        <button type="submit" class="btn btn-default" onclick="select()" > 查找 </button>
+    </div>
 
 </div>
     <div style="float: right">

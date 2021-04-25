@@ -8,6 +8,7 @@ import com.wisstudio.recruit.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class UserServiceImpl implements UserService {
 
@@ -54,11 +55,7 @@ public class UserServiceImpl implements UserService {
         return userDaoImpl.findByStudentId(StudentId);
     }
 
-    /**
-     * 提交
-     * @param user 用户信息
-     * @return 返回结果
-     */
+
     @Override
     public boolean submit(User user) {
         return userDaoImpl.add(user);
@@ -70,19 +67,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageBean<User> findUserByPage(String _currentPage, String _rows) {
-        int currentPage = Integer.parseInt(_currentPage);
-        int rows = Integer.parseInt(_rows);
+    public PageBean<User> findUserByPage(String currentPage1, String rows1, Map<String, String[]> condition) {
+        System.out.println("currentPage1"+currentPage1);
+        int currentPage = Integer.parseInt(currentPage1);
+        int rows = Integer.parseInt(rows1);
+        System.out.println(currentPage);
         //PageBean对象
         PageBean<User> pb = new PageBean<>();
         pb.setCurrentPage(currentPage);
         pb.setRows(rows);
         //查询总记录数
-        int totalCount = userDaoImpl.findTotalCount();
+        int totalCount = userDaoImpl.findTotalCount(condition);
         pb.setTotalCount(totalCount);
         //查询页面开始的索引
         int start = (currentPage - 1) * rows;
-        List<User> list = userDaoImpl.findByPage(start,rows);
+        List<User> list = userDaoImpl.findByPage(start,rows,condition);
         pb.setList(list);
         //总页码
         int totalPage = (totalCount % rows) == 0 ? totalCount/rows : totalCount/rows +1;

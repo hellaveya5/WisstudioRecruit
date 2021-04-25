@@ -1,9 +1,9 @@
 package com.wisstudio.recruit.dao;
 
-import com.wisstudio.recruit.po.PageBean;
 import com.wisstudio.recruit.po.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserDao {
     /**
@@ -35,16 +35,18 @@ public interface UserDao {
     User findByStudentId(Long studentId);
 
     /**
-     * 查询总的记录数
-     * @return 总的记录数
+     * 查询符合条件的总记录数
+     * @return 总记录数
+     * @param condition 条件
      */
-    int findTotalCount();
+    int findTotalCount(Map<String, String[]> condition);
 
     /**
-     * 分页查询每页记录
+     * 分页条件查询每页记录
      * @param start 开始查找的索引
      * @param rows  查找行数
+     * @param condition 条件
      * @return  信息集
      */
-    List<User> findByPage(int start, int rows);
+    List<User> findByPage(int start, int rows, Map<String, String[]> condition);
 }

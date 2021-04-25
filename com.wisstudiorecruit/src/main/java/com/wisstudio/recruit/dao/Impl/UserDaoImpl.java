@@ -1,17 +1,17 @@
 package com.wisstudio.recruit.dao.Impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wisstudio.recruit.dao.UserDao;
-import com.wisstudio.recruit.po.PageBean;
 import com.wisstudio.recruit.po.User;
 import com.wisstudio.recruit.util.SqlUtils;
 import com.wisstudio.recruit.util.Impl.SqlUtilsimpl;
 import com.wisstudio.recruit.util.JDBCUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author 98333
@@ -93,29 +93,56 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public int findTotalCount() {
-        String sql = "select count(*) from tab_user";
-        Connection con = null;
-        int total=-1;
-        Statement stmt ;
-        try {
-            con = dbUtil.getCon();
-            stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
-                total=rs.getInt(1);
+    public int findTotalCount(Map<String, String[]> condition) {
+        String sql = "select * from tab_user where 1=1 ";
+        StringBuilder sb = new StringBuilder();
+        sb.append(sql);
+        Set<String> keySet = condition.keySet();
+        List<Object> list = new ArrayList<>();
+        for(String key : keySet){
+            //取条件值
+            if("rows".equals(key) || "currentPage".equals(key)){
+                continue;
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            String value =condition.get(key)[0];
+            if(value != null && !"".equals(value)){
+                //模糊查询
+                sb.append(" and ").append(key).append(" = ?");
+                list.add(value);
+            }
+            System.out.println(sb.toString());
+            System.out.println(list);
         }
-       return total;
+        return sqlUtils.query(sb.toString(),User.class,list.toArray()).size();
     }
 
     @Override
-    public List<User> findByPage(int start, int rows) {
-        String sql = "select * from tab_user limit ? , ? ";
-        return sqlUtils.query(sql, User.class , start , rows);
+    public List<User> findByPage(int start, int rows, Map<String, String[]> condition) {
+        String sql = "select * from tab_user where 1=1 ";
+        StringBuilder sb = new StringBuilder();
+        sb.append(sql);
+        Set<String> keySet = condition.keySet();
+        List<Object> list = new ArrayList<>();
+        for(String key : keySet){
+            //取条件值
+            if("rows".equals(key) || "currentPage".equals(key)){
+                continue;
+            }
+            String value =condition.get(key)[0];
+            if(value != null && !"".equals(value)){
+                //查询
+                sb.append(" and ").append(key).append(" = ?");
+                list.add(value);
+            }
+            System.out.println(sb.toString());
+            System.out.println(list);
+        }
+        sb.append(" limit ?,? ");
+        list.add(start);
+        list.add(rows);
+        System.out.println(sb.toString());
+        System.out.println(list);
+        return sqlUtils.query(sb.toString(), User.class , list.toArray());
     }
 
 }

@@ -35,7 +35,6 @@ public class AdminSearchServlet extends HttpServlet {
         List<User> allUser = adminDao.findAll();
         String allUs = objectMapper.writeValueAsString(allUser);
         resp.getWriter().write(allUs);*/
-        System.out.println("search"+0);
         resp.sendRedirect("/findUserByPageServlet?rows=5&currentPage=1");
     }
 }
