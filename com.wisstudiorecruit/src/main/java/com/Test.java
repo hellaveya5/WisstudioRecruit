@@ -59,7 +59,7 @@ public class Test {
     public void test03() {
         Map<String, String[]> map = new HashMap<>();
         String[] strArray = {"123123123"};
-        map.put("id", strArray);
+        map.put("studentId", strArray);
         map.put("password", strArray);
         BeanUtilsImpl beanUtils = new BeanUtilsImpl();
         User populate = beanUtils.populate(User.class, map);

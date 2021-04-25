@@ -1,5 +1,7 @@
 package com.wisstudio.recruit.util;
 
+import com.wisstudio.Exception.TypeNotEnoughException;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.PreparedStatement;
@@ -50,5 +52,6 @@ public class ReflectUtils {
         }
         return objList;
     }
+
 
 }
