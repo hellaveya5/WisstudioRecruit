@@ -187,12 +187,19 @@
                 ,
                 dataType:"json"
             })
+    }
+    function exit() {
+        console.log("aaaaaaaa")
+        if(window.confirm("确定退出？")){
+            localStorage.clear();
+            location.href = "/html/index.html";
+        }
 
     }
 </script>
 <div class="container-fluid">
     <div>
-        <h3 class="col-sm-offset-5">用户信息列表<button id="selectAll" ><small>获取所有用户信息</small> </button></h3>
+        <h3 class="col-sm-offset-5">  用户信息列表<button id="selectAll" ><small>获取所有用户信息</small></button> <button onclick="exit()" ><small>退出</small></button> </h3>
     </div>
 <div style="float: left">
     <div class="form-inline"  method="post" accept-charset="utf-8">
