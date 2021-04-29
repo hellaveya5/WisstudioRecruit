@@ -1,4 +1,4 @@
-package com.wisstudio.recruit.po;
+package com.wisstudio.recruit.vo;
 
 import java.util.List;
 

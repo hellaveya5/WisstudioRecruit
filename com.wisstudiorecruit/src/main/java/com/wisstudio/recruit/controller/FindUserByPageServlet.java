@@ -1,10 +1,9 @@
 package com.wisstudio.recruit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wisstudio.recruit.po.PageBean;
+import com.wisstudio.recruit.vo.PageBean;
 import com.wisstudio.recruit.po.User;
 import com.wisstudio.recruit.service.Impl.UserServiceImpl;
-import com.wisstudio.recruit.util.Impl.BeanUtilsImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,7 +39,6 @@ public class FindUserByPageServlet extends HttpServlet {
             rows = "5" ;
         }
         if(!"0".equals(currentPage)){
-            resp.setContentType("text/html;charset = utf-8");
             UserServiceImpl service = new UserServiceImpl();
             PageBean<User> pb = service.findUserByPage(currentPage , rows , condition);
             //请求的页数大于应有的页数，拒绝

@@ -27,7 +27,6 @@ public class EmailServlet extends HttpServlet {
         String emailStandard="^[A-Za-z0-9]+([_.][A-Za-z0-9]+)*@([A-Za-z0-9\\-]+\\.)+[A-Za-z]{2,6}$";
         String emailAddr = req.getParameter("email");
         String randomCode = MailUtils.generateRandomCode(6);
-        resp.setContentType("text/html;charset=utf-8");
         if(emailAddr.matches(emailStandard)){
             info.setFlag(true);
             try {

@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
-
 /**
  * @Author:98333
  * @Date:2021/4/20
@@ -40,7 +39,6 @@ public class GetUserDataServlet extends HttpServlet {
         if(userdata!=null){
             ObjectMapper objectMapper = new ObjectMapper();
             String us = objectMapper.writeValueAsString(userdata);
-            resp.setContentType("text/html;charset = utf-8");
             System.out.println(us);
             resp.getWriter().write(us);
             Logger.getGlobal().info("返回用户数据成功");

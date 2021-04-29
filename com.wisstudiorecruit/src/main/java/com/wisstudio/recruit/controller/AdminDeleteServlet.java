@@ -29,7 +29,6 @@ public class AdminDeleteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=utf-8");
         ResultInfo info = new ResultInfo();
         BeanUtilsImpl beanUtils = new BeanUtilsImpl();
         Map<String, String[]> map = req.getParameterMap();

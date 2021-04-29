@@ -18,8 +18,8 @@
         //将上一页面的用户名和密码传到这一个页面
         let name = window.localStorage.getItem("name");
         let Authority = window.localStorage.getItem("admin");
-        console.log(name);
-        if(name){
+        console.log(Authority);
+        if(Authority !== "active"){
             let password = window.localStorage.getItem("password");
             $("#inputUsername").val(name);
             $("#inputPassword").val(password);

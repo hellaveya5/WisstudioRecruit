@@ -1,6 +1,6 @@
 package com.wisstudio.recruit.service;
 
-import com.wisstudio.recruit.po.PageBean;
+import com.wisstudio.recruit.vo.PageBean;
 import com.wisstudio.recruit.po.User;
 
 import java.util.Map;

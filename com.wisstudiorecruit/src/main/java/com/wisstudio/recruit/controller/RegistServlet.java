@@ -28,7 +28,6 @@ public class RegistServlet extends HttpServlet {
         BeanUtils beanUtils = new BeanUtilsImpl();
         ResultInfo info = new ResultInfo();
         User user = beanUtils.populate(User.class, map);
-        resp.setContentType("text/html;charset=utf-8");
         //flag成功与否
         boolean flag = new UserServiceImpl().regist(user);
         System.out.println("servlet"+flag);

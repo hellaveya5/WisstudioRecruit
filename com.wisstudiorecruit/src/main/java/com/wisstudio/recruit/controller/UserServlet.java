@@ -41,7 +41,6 @@ public class UserServlet extends HttpServlet {
             info.setMsg("修改用户失败");
         }
         Logger.getGlobal().info(info.getMsg());
-        resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().print(info.isFlag());
     }
 

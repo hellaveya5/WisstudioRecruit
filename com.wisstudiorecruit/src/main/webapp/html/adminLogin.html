@@ -27,8 +27,9 @@
                         if(data!=='false'){
                             console.log("收到登录"+data);
                             alert("登陆成功");
+                            localStorage.setItem("admin","active");
                             window.location.href = '/html/admin.html';
-                            localStorage.clear();
+
                         }else {
                             alert("登陆失败");
                             console.log("收到登录"+data);

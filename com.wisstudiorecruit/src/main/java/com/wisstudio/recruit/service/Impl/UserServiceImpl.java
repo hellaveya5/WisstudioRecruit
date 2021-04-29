@@ -2,7 +2,7 @@ package com.wisstudio.recruit.service.Impl;
 
 import com.wisstudio.recruit.dao.UserDao;
 import com.wisstudio.recruit.dao.Impl.UserDaoImpl;
-import com.wisstudio.recruit.po.PageBean;
+import com.wisstudio.recruit.vo.PageBean;
 import com.wisstudio.recruit.po.User;
 import com.wisstudio.recruit.service.UserService;
 

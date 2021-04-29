@@ -2,13 +2,20 @@ package com;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wisstudio.Annotation.GetMapping;
+import com.wisstudio.recruit.controller.AdminAddServlet;
 import com.wisstudio.recruit.po.User;
+import com.wisstudio.recruit.service.Impl.AdminServiceImpl;
 import com.wisstudio.recruit.util.BeanUtils;
 import com.wisstudio.recruit.util.Impl.BeanUtilsImpl;
 import com.wisstudio.recruit.util.Impl.SqlUtilsimpl;
 import com.wisstudio.recruit.util.JDBCUtils;
 import com.wisstudio.recruit.util.MailUtils;
 
+import java.lang.annotation.Annotation;
+import java.lang.annotation.Target;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -146,5 +153,39 @@ public class Test {
         }
         assert sqlUtils != null;
         Integer i = sqlUtils.query(sql,User.class,currentPages,rows).size();
+    }
+    @org.junit.Test
+    public void test09(){
+        try {
+            AdminAddServlet a = AdminAddServlet.class.getConstructor().newInstance();
+            Class<? extends AdminAddServlet> aClass = a.getClass();
+            Method[] methods = aClass.getMethods();
+            System.out.println(aClass.toString());
+            for (Method i :
+                    methods) {
+                Annotation b = i.getAnnotation(GetMapping.class);
+                if(null!=b){
+                    System.out.println("i : "+b);
+                }else{
+                    System.out.println("not");
+                }
+            }
+
+
+
+
+
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 }

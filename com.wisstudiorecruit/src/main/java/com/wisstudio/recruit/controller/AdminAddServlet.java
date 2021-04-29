@@ -1,6 +1,7 @@
 package com.wisstudio.recruit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wisstudio.Annotation.GetMapping;
 import com.wisstudio.recruit.dao.Impl.AdminDaoImpl;
 import com.wisstudio.recruit.po.User;
 import com.wisstudio.recruit.result.ResultInfo;
@@ -21,16 +22,16 @@ import java.util.logging.Logger;
  * @Date:2021/4/20
  * @Description:com.wisstudio.recruit.controller
  */
-@WebServlet(urlPatterns = "/AdminAddServlet")
+
+@WebServlet("/AdminAddServlet")
 public class AdminAddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
     }
-
+    @GetMapping(name = "/adminAdd")
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html ; charset = utf-8");
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ResultInfo info = new ResultInfo();
         BeanUtilsImpl beanUtils = new BeanUtilsImpl();
         AdminDaoImpl adminDao = new AdminDaoImpl();
@@ -47,4 +48,6 @@ public class AdminAddServlet extends HttpServlet {
         resp.getWriter().write(info.getMsg());
         resp.sendRedirect("/AdminSearchServlet");
     }
+
+
 }

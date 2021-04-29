@@ -61,7 +61,7 @@
       <option name="IGNORE_JAVADOC_PERIOD" value="true" />
       <option name="IGNORE_DUPLICATED_THROWS" value="false" />
       <option name="IGNORE_POINT_TO_ITSELF" value="false" />
-      <option name="myAdditionalJavadocTags" value="date" />
+      <option name="myAdditionalJavadocTags" value="date,method,instance,parameterNames,Description:com.wisstudio.recruit.util,Date:2021/4/29,Author:98333,parameterClasses,Description:com.wisstudio.recruit.controller,Description:,ObjectMapper,Description:${PACKAGE_NAME}" />
     </inspection_tool>
   </profile>
 </component>

@@ -17,7 +17,7 @@
         //初始分页数据
         let pb ;
         localStorage.clear();
-        localStorage.setItem("admin","active");
+
     $("#selectAll").on("click",function () {
         $.ajax({
             type:"get",
@@ -120,6 +120,7 @@
     }
     //创造分页栏
     function createNavigation(totalCount,totalPage) {
+        console.log("crea"+totalCount+totalPage);
         $("li").remove(".italic");
         $("#totalCount").html("共"+totalCount+"条记录,");
         $("#totalPage").html("共"+totalPage+"页");
@@ -135,7 +136,10 @@
                 url:"/findUserByPageServlet",
                 data:{
                     currentPage:i,
-                    rows:localStorage.getItem("rows")
+                    rows:localStorage.getItem("rows"),
+                    grade:$("#grade").val(),
+                    studentId:$("#studentId").val(),
+                    name:$("#name").val(),
                 },
                 success:function (data){
                     showUser(data.list);
@@ -144,7 +148,12 @@
                     console.log("请求成功");
                     localStorage.setItem("rows",data.rows);
                     localStorage.setItem("currentPage",data.currentPage);
-                    localStorage.setItem("totalPage",data.totalPage)
+                    localStorage.setItem("totalPage",data.totalPage);
+                    localStorage.setItem("currentCount",data.currentPage);
+                    console.log(  localStorage.getItem("rows"),
+                    localStorage.getItem("currentPage"),
+                    localStorage.getItem("totalPage"));
+                    createNavigation(localStorage.getItem("totalCount"),localStorage.getItem("totalPage"))
                 },
                 error:function(){
                     console.log("请求失败");
@@ -221,7 +230,7 @@
 </div>
     <div style="float: right">
         <a class="btn btn-primary" href="/html/user.html">添加</a>
-        <a class="btn btn-primary" href="#">删除选中</a>
+        <!--<a class="btn btn-primary" href="#">删除选中</a>-->
     </div>
     <table id ="userList" border="1" class="table table-bordered table-hover">
         <tr class="success" disabled="#">
